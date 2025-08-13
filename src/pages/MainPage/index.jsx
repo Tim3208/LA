@@ -1,11 +1,23 @@
-// import MainLayOut from "../../layout/MainLayOut";
+import MainPageTitleCP from "../../components/MainPageCP/MainPageTitleCP";
+import MainLayOut from "../../layout/MainLayOut";
 
 import { MainPageMainStyle } from "./style";
 
 const MainPage = () => {
   return (
     <MainPageMainStyle>
-      <div>test</div>
+      <MainLayOut>
+        {/* 메인 타이틀 */}
+        <MainPageTitleCP />
+
+        {/* 서비스 특징 */}
+
+        {/* 이용 방법 */}
+
+        {/* 더 많은 기능들 */}
+
+        {/* 하단 베너 */}
+      </MainLayOut>
     </MainPageMainStyle>
   );
 };

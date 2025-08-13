@@ -38,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
       --gray-50: #CDD4E4;
       --gray-40: #E5E5E5;
       --gray-30: #F5F5F5;
+
+      /* Footer Background Color */
+      --navy: #111827;
     }
 
 
