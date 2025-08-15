@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <header>
+    <div class="logo">LA</div>
+    <nav>
+      <a href="#">캘린더</a>
+      <a href="#">게시판</a>
+      <a href="#">마이페이지</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div>
+      <button class="btn login">로그인</button>
+      <button class="btn signup">회원가입</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- AI 추천 카드 -->
+    <div class="ai-card">
+  <div class="ai-header">
+    <div>
+      <p class="label">AI 큐레이터 서비스</p>  
+      <h2>AI가 찾아주는 <span class="highlight">{position}</span>의<br>완벽한 행사 추천</h2>
+      <p>“이번 주말 데이트할 만한 곳 없어요?” 자연스럽게 물어보세요.<br>
+         AI가 당신의 취향을 분석해 딱 맞는 지역 행사를 추천해드려요.</p>
+      <div class="top-buttons">
+        <button class="btn-right">AI 큐레이터 사용하기</button>
+        <button class="btn-left">이벤트 캘린더</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-features">
+    <div>
+      <strong>맞춤 추천</strong><br>취향 분석으로 92% 매치
+    </div>
+    <div>
+      <strong>AI 챗봇</strong><br>일상 대화하듯 편리하게
+    </div>
+    <div>
+      <strong>후기 분석</strong><br>실시간 만족도 분석
+    </div>
+  </div>
+</div>
+
+    </div>
+
+
+    <!-- Events & Recommendations -->
+    <div class="section">
+      <!-- Upcoming Events -->
+      <div class="events">
+        <h3>다가오는 이벤트</h3>
+        <p class="subtitle">{position}에서 열리는 행사와 축제</p>
+        <div id="eventList"></div>
+        <a href="#" class="view-all">전체보기 ></a>
+        </div>
+
+
+      <!-- Quick Menu -->
+      <div class="quick-menu">
+        <button>자유게시판</button>
+        <button>홍보게시판</button>
+        <button>인기게시판</button>
+        <button>AI 큐레이터</button>
+      </div>
+    </div>
+
+    <!-- AI 맞춤 추천 -->
+    <div class="recommendations">
+  <h3>AI 맞춤 추천</h3>
+  <p class="subtitle">당신만을 위한 개인화된 행사 추천</p>
+  <div id="recommendationList"></div>
+  <div class="chatbot">
+    <p>AI 챗봇과 대화해보세요<br>“이번 주말 데이트할 만한 곳 없어요?” 자연스럽게 물어보세요</p>
+    <button>지금 대화하기</button>
+    <button class="btn-light">예시 보기</button>
+  </div>
+  <a href="#" class="view-all">전체보기 ></a>
+</div>
+
+  </div>
+
+  <footer>
+    
+  </footer>
+
+  <script>
+    const events = [
+      { title: "멋쟁이 사자처럼 13기 해커톤", date: "2025.08.25", type: "행사", likes: 326 },
+      { title: "지역 청년 창업 박람회", date: "2025.09.24", type: "행사", likes: 87 },
+      { title: "겨울 야시장", date: "2025.12.22", type: "축제", likes: 123 }
+    ];
+
+    const recommendations = [
+      { title: "멋쟁이 사자처럼 13기 해커톤", match: "92%", tags: ["힐링", "감성"] },
+      { title: "지역 청년 창업 박람회", match: "85%", tags: ["청년창업", "도전정신"] }
+    ];
+
+    const eventList = document.getElementById('eventList');
+    events.forEach(ev => {
+      eventList.innerHTML += `
+        <div class="event-item">
+          <div>
+            <strong>${ev.type}</strong> ${ev.date}<br>
+            ${ev.title}
+          </div>
+          <div>❤️ ${ev.likes}</div>
+        </div>
+      `;
+    });
+
+    const recommendationList = document.getElementById('recommendationList');
+    recommendations.forEach(rec => {
+      recommendationList.innerHTML += `
+        <div class="rec-item">
+          <div>
+            <strong>${rec.match} 매치</strong> ${rec.title}<br>
+            <small>${rec.tags.join(", ")}</small>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

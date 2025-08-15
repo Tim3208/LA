@@ -1,0 +1,246 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, sans-serif; 
+}
+
+body { 
+  background-color: #f5f6fa; 
+  color: #333; 
+}
+
+/* Header */
+header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px 20px; 
+  background: #fff; 
+  border-bottom: 4px solid #00000040; 
+}
+
+header .logo { 
+  font-weight: bold; 
+  font-size: 32px; 
+  color: #2563eb; 
+}
+
+header nav a { 
+  margin-left: 15px; 
+  text-decoration: none; 
+  color: #333; 
+}
+
+header .btn { 
+  padding: 5px 12px; 
+
+  border-radius: 4px; 
+  cursor: pointer; 
+}
+
+.login { 
+  background-color: #fff; 
+  border: 1px solid #00000040; 
+  color: #2563eb; 
+}
+
+.signup { 
+  background-color: #2563eb; 
+  border: none;
+  color: #fff; 
+}
+
+/* Container */
+.container { 
+ 
+  margin: 20px auto; 
+  padding: 0 20px; 
+}
+
+/* AI 추천 카드 */
+.ai-card { 
+  background-color: #2563eb; 
+  color: #fff; 
+  padding: 25px; 
+  border-radius: 12px; 
+}
+
+.ai-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.ai-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #1e40af;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-card .label {
+  width: 160px;
+  height: 39px;
+  gap: 10px; /* flex 또는 grid 컨테이너일 때만 적용됨 */
+  transform: rotate(0deg);
+  opacity: 1;
+  border-radius: 15px;
+  padding: 10px 15px; /* 상하 10px, 좌우 15px */
+  background-color: #FFFFFF40;
+  align-items: center;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.highlight {
+  color: #BEDBFF;
+;
+}
+
+.top-buttons {
+  margin-top: 23px;
+}
+
+.top-buttons .btn-right {
+  background-color: #51A2FF;
+  color:#fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.top-buttons .btn-left {
+  background-color: #2563eb;
+  color: #fff;
+  padding: 8px 15px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.bottom-features {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.bottom-features div {
+  background: rgba(255,255,255,0.15);
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.bottom-features div:not(:last-child) {
+  margin-right: 10px;
+}
+
+
+/* Events & Recommendations */
+.section { 
+  display: flex; 
+  justify-content: space-between; 
+  gap: 20px; 
+  flex-wrap: wrap;
+}
+
+.events, .recommendations { 
+  background-color: #fff; 
+  border-radius: 10px; 
+  padding: 15px; 
+}
+
+.events { 
+  flex: 2; 
+}
+
+.recommendations { 
+  flex: 3; 
+  margin-top: 0; 
+}
+
+.events h3, .recommendations h3 { 
+  margin-bottom: 15px; 
+}
+
+.event-item, .rec-item { 
+  border-bottom: 1px solid #eee; 
+  padding: 10px 0; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.event-item:last-child, .rec-item:last-child { 
+  border-bottom: none; 
+}
+
+.quick-menu { 
+  background-color: #fff; 
+  padding: 15px; 
+  border-radius: 10px; 
+  margin-top: 20px; 
+  flex: 1; 
+  height: fit-content; 
+}
+
+.quick-menu button { 
+  display: block; 
+  width: 100%; 
+  margin-bottom: 10px; 
+  padding: 10px; 
+  border-radius: 6px; 
+  border: 1px solid #ddd; 
+  background: #f9f9f9; 
+  cursor: pointer; 
+}
+
+.events .subtitle, .recommendations .subtitle {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.events .view-all {
+  float: right;
+  font-size: 12px;
+  text-decoration: none;
+  color: #2563eb;
+}
+
+.event-item small { 
+  color: #888; 
+  font-size: 12px; 
+}
+
+.recommendations .chatbot { 
+  margin-top: 15px; 
+  background: #e8f0fe; 
+  padding: 10px; 
+  border-radius: 8px; 
+}
+
+.recommendations .chatbot button { 
+  margin-right: 10px; 
+  padding: 6px 12px; 
+  border-radius: 6px; 
+  border: none; 
+  cursor: pointer; 
+}
+
