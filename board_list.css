@@ -15,43 +15,13 @@ body {
 header.header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 12px 20px;
   background: #fff;
   border-bottom: 1px solid #ddd;
+  height: 65px;
 }
 
-header .logo {
-  font-weight: 700;
-  font-size: 20px;
-}
 
-header .location {
-  font-size: 14px;
-  margin-left: 6px;
-  color: #666;
-}
-
-header .nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #333;
-}
-
-header .auth .btn {
-  margin-left: 6px;
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
-  cursor: pointer;
-}
-
-header .auth .btn.primary {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-}
 
 /* Layout */
 .container {
