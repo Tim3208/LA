@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시판 목록</title>
+  <link rel="stylesheet" href="board_list.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">LA </div>
+    <nav class="nav">
+      <a href="#">캘린더</a>
+      <a href="#">게시판</a>
+      <a href="#">AI 큐레이터</a>
+      <a href="#">마이페이지</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div class="auth">
+      <button class="btn">서비스 소개</button>
+      <button class="btn">로그인</button>
+      <button class="btn primary">회원가입</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <!-- Left -->
+    <section class="boards">
+      <div class="board-card">
+        <h3>자유게시판</h3>
+        <p>자유롭게 소통하는 공간</p>
+        <br>
+        <div class="info">총 1,234개 게시글 <span class="today">오늘 +45</span></div>
+      </div>
+
+      <div class="board-card">
+        <h3>홍보게시판</h3>
+        <p>개인 및 소상공인 홍보</p>
+        <br>
+        <div class="info">총 567개 게시글 <span class="today">오늘 +23</span></div>
+      </div>
+
+      <div class="board-card">
+        <h3>지역홍보게시판</h3>
+        <p>공식 지역 홍보 게시물</p>
+        <br>
+        <div class="info">총 234개 게시글 <span class="today">오늘 +8</span></div>
+      </div>
+
+      <div class="board-card">
+        <h3>뉴스게시판</h3>
+        <p>지역 관련 뉴스와 소식</p>
+        <br>
+        <div class="info">총 890개 게시글 <span class="today">오늘 +34</span></div>
+      </div>
+
+      <div class="board-card">
+        <h3>핫게시판</h3>
+        <p>인기 있는 게시글 모음</p>
+        <br>
+        <div class="info">총 456개 게시글 <span class="today">오늘 +67</span></div>
+      </div>
+    </section>
+
+    <!-- Right -->
+<aside class="sidebar">
+  <div class="recent">
+    <h3>최근 게시글</h3>
+    <p>강남구의 최신 소식</p>
+
+    <div class="post-card">
+      <div class="post-header">
+        <span class="category">자유게시판</span>
+        <span class="tag hot">HOT</span>
+      </div>
+      <p class="title">게시물의 제목을 입력하는 란입니다</p>
+      <p class="meta">뉴스봇 · 8시간 전</p>
+    </div>
+
+    <div class="post-card">
+      <div class="post-header">
+        <span class="category">홍보게시판</span>
+        <span class="tag official">공식</span>
+      </div>
+      <p class="title">게시물의 제목을 입력하는 란입니다</p>
+      <p class="meta">뉴스봇 · 8시간 전</p>
+    </div>
+
+    <div class="post-card">
+      <div class="post-header">
+        <span class="category">뉴스게시판</span>
+        <span class="tag news">뉴스</span>
+      </div>
+      <p class="title">게시물의 제목을 입력하는 란입니다</p>
+      <p class="meta">뉴스봇 · 8시간 전</p>
+    </div>
+  </div>
+
+  <div class="guide">
+    <h3>게시판 이용 안내</h3>
+    <br>
+    <ul>
+      <li>서로 존중하며 건전한 소통을 해주세요</li>
+      <li>개인정보 및 연락처 공개를 금지합니다</li>
+      <li>상업적 홍보는 홍보게시판을 이용해주세요</li>
+      <li>허위정보 유포 시 제재를 받을 수 있습니다</li>
+    </ul>
+  </div>
+</aside>
+
+  </main>
+</body>
+</html>
