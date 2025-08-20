@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
 
 /* ========================
    Reset & 기본 스타일
@@ -62,7 +63,24 @@ export const BoardCard = styled.div`
   justify-content: space-between;
   height: 140px;
   box-sizing: border-box;
+  box-shadow: 0px 0px 3px 0px #00000040;
+
 `;
+
+
+export const InfoWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;  
+  gap: 12px;                
+`;
+
+
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 
 export const BoardTitle = styled.h2`
   font-weight: 700;
@@ -118,29 +136,42 @@ export const Recent = styled(SidebarBox)`
   height: 420px;
   padding: 24px;
   box-sizing: border-box;
+  box-shadow: 0px 0px 5px 0px #0000004D;
+
 `;
 
 export const Guide = styled(SidebarBox)`
   height: 209px;
   padding: 24px;
+  box-shadow: 0px 0px 5px 0px #0000004D;
+  margin-bottom: 100px;
 `;
 
 /* Sidebar 타이틀, 텍스트, 리스트 */
+export const SectionHeader = styled.h3`
+  font-size: 24px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  margin: 0;
+`;
+
+export const SectionHeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 export const SectionTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 32px;
+  padding-bottom: 32px;
 `;
 
-export const SidebarTitle = styled.h3`
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-`;
-
-export const SidebarText = styled.p`
-  font-size: 13px;
-  color: #555;
+export const SectionSubtitle = styled.p`
+  font-size: 16px;
+  font-weight: 400;
+  color: #7b8292;
+  margin:0;
 `;
 
 export const SidebarList = styled.ul`
@@ -151,6 +182,11 @@ export const SidebarList = styled.ul`
   font-weight: 400;
   color: #7b8292;
   margin-bottom: 8px;
+  font-family: Work Sans;
+  li {
+    margin-bottom: 8px; 
+  }
+
 `;
 
 /* ========================
