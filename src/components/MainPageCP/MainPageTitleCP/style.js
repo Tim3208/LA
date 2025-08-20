@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const MainPageTitleCPMainStyle = styled.main`
   background: var(--main-page-bg);
-  background: #aaf;
   padding: 0 2rem;
 
   .container {
@@ -21,16 +20,16 @@ export const MainPageTitleCPMainStyle = styled.main`
     gap: 2rem;
   }
 
-  & > section > div:nth-child(1) {
+  & > div > section > div:nth-child(1) {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
 
-  & > section > div:nth-child(1) > div {
-    display: flex;
-    flex-direction: column;
-    gap: 23px;
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 23px;
+    }
   }
 
   .label {
