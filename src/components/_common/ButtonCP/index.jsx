@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 const ButtonCPStyle = styled.span`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: "8px 12px";
-  border-radius: "8px";
-  background-color: var(${bgColor});
-  color: var(${fontColor});
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: ${({ bgColor }) => `var(${bgColor})`};
+  color: ${({ fontColor }) => `var(${fontColor})`};
 `;
 
 /**
@@ -19,7 +21,7 @@ const ButtonCPStyle = styled.span`
  * @param {string} fontColor 글자 색을 정한다. (기본값: white)
  * @returns ButtonCP 는 _common에 속하며, 해당 태그로 감싼 글자를 span으로 blue css 적용
  */
-const ButtonCP = ({
+export const ButtonCP = ({
   onClick,
   children,
   icon,
@@ -33,7 +35,7 @@ const ButtonCP = ({
           style={{
             display: "inline-flex",
             alignItems: "center",
-            marginRight: "0.5em",
+            marginRight: "0.5rem",
           }}
         >
           {icon}
@@ -43,4 +45,3 @@ const ButtonCP = ({
     </ButtonCPStyle>
   );
 };
-export default ButtonCP;
