@@ -35,5 +35,6 @@ export const flexBetweenCol = css`
 //   ${flexCenter};
 //   height: 100px;
 //   background-color: ${({ theme }) => theme.colors.blue[90]};
+//   background-color: var(--blue-90);
 //   color: white;
 // `;

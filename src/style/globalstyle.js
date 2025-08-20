@@ -38,28 +38,32 @@ const GlobalStyle = createGlobalStyle`
       --gray-50: #CDD4E4;
       --gray-40: #E5E5E5;
       --gray-30: #F5F5F5;
+
+      /* Footer Background Color */
+      --navy: #111827;
     }
 
 
 
-  ${reset}
   *, *::before, *::after{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     vertical-align: baseline;
   }
   body {
-	line-height: 1;
+	  line-height: 1;
     font-family: 'Noto Sans KR', 'Roboto', 'Nanum Gothic', 'Ubuntu', 'Gothic A1', sans-serif;
   }
   ol, ul {
-	list-style: none;
+	  list-style: none;
   }
   blockquote, q {
   	quotes: none;
   }
   table {
-	border-collapse: collapse;
-	border-spacing: 0;
+	  border-collapse: collapse;
+	  border-spacing: 0;
   }
   a, a:link, a:visited, a:hover, a:active{
     color: #202123;
@@ -70,8 +74,8 @@ const GlobalStyle = createGlobalStyle`
   -ms-overflow-style: auto; /* IE and Edge */
   scrollbar-width: thin; /* Firefox */
 
-    // 가로의 중앙
-    .flexWidthCenter {
+  // 가로의 중앙
+  .flexWidthCenter {
     display: flex;
     justify-content: center;
   }
