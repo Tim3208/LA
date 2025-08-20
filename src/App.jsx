@@ -14,6 +14,8 @@ function App() {
         {/* 메인 */}
         <Route path="/" element={<MainPage />} />
 
+        {/* 게시판 목록 */}
+
         {/* Ai 페이지 */}
         <Route path="/ai" element={<AiPage />} />
       </Routes>

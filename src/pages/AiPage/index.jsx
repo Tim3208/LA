@@ -149,7 +149,7 @@ const AiPage = () => {
   };
 
   return (
-    <AiPageMainStyle className>
+    <AiPageMainStyle>
       <MainLayOut>
         <section className="flex justify-center bg-mainPageBg px-4 sm:px-0 py-8">
           <Tabs

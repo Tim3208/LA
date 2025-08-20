@@ -1,19 +1,19 @@
 import MainPageTitleCP from "../../components/MainPageCP/MainPageTitleCP";
+import MainPageCardsCP from "../../components/MainPageCP/MainPageCardsCP";
 import MainLayOut from "../../layout/MainLayOut";
 import { MainPageMainStyle } from "./style";
+import { useState } from "react";
 
 const MainPage = () => {
+  const [position, setPosition] = useState("강남구");
   return (
-    <MainPageMainStyle>
-      <MainLayOut>
-        {/* 메인 타이틀 */}
-        <MainPageTitleCP />
+    <MainLayOut>
+      {/* Ai 추천 카드 */}
+      <MainPageTitleCP />
 
-        {/* 메인 카드 */}
-
-        {/* 하단 베너 */}
-      </MainLayOut>
-    </MainPageMainStyle>
+      {/* 게시판 카드 목록 */}
+      <MainPageCardsCP />
+    </MainLayOut>
   );
 };
 
