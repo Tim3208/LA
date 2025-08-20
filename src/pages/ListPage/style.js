@@ -1,46 +1,58 @@
+import styled from "styled-components";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
-}
+/* ========================
+   Reset & 기본 스타일
+   ======================== */
+export const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
+  }
 
-body {
-  background-color: #f5f6fa;
-  color: #333;
-}
+  body {
+    background-color: #f5f6fa;
+    color: #333;
+  }
+`;
 
-
-header.header {
+/* ========================
+   Header
+   ======================== */
+export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 12px 20px;
   background: #fff;
   border-bottom: 1px solid #ddd;
   height: 65px;
-}
+`;
 
-
-.container {
+/* ========================
+   Layout
+   ======================== */
+export const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 384px; /* 왼쪽 메인, 오른쪽 사이드바 고정폭 */
-  gap: 32px;                        /* 컬럼 간격 */
-  padding: 32px;                     /* 전체 padding */
+  grid-template-columns: 1fr 384px;
+  gap: 32px;
+  padding: 32px;
   max-width: 1440px;
   margin: 0 auto;
   box-sizing: border-box;
-}
+`;
 
-.boards {
+/* ========================
+   Boards
+   ======================== */
+export const Boards = styled.section`
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2열 고정 */
-  gap: 32px;                             /* 가로/세로 간격 모두 32px */
-  margin: 64px 0 250px 0;                /* 상/하 간격 */
-}
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin: 64px 0 250px 0;
+`;
 
-
-.board-card {
+export const BoardCard = styled.div`
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -50,88 +62,88 @@ header.header {
   justify-content: space-between;
   height: 140px;
   box-sizing: border-box;
-}
+`;
 
-.board-card .board-title {
+export const BoardTitle = styled.h2`
   font-weight: 700;
   font-size: 24px;
   margin-bottom: 5px;
-}
+`;
 
-.board-card p {
+export const BoardText = styled.p`
   font-size: 16px;
-  margin: 0;
   color: #7b8292;
-}
+  margin: 0;
+`;
 
-/* 게시판 하단 정보 */
-.info-today-wrapper {
+export const InfoTodayWrapper = styled.div`
   display: flex;
-  justify-content: space-between; /* info와 today 좌우 끝 배치 */
+  justify-content: space-between;
   align-items: center;
-}
+`;
 
-.board-card .info {
+export const Info = styled.p`
   font-family: 'Work Sans', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #000;
   margin: 0;
-}
+`;
 
-.board-card .today {
+export const Today = styled.p`
   color: #2563eb;
   margin: 0;
-}
+`;
 
-/* Sidebar */
-.sidebar {
+/* ========================
+   Sidebar
+   ======================== */
+export const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 50px;
   margin-top: 64px;
-}
+`;
 
-.sidebar .recent,
-.sidebar .guide {
+export const SidebarBox = styled.div`
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 16px;
   margin-bottom: 20px;
   width: 384px;
-}
+`;
 
-.sidebar .recent {
+export const Recent = styled(SidebarBox)`
   height: 420px;
   padding: 24px;
   box-sizing: border-box;
-}
+`;
 
-.sidebar .guide {
+export const Guide = styled(SidebarBox)`
   height: 209px;
   padding: 24px;
-}
+`;
 
 /* Sidebar 타이틀, 텍스트, 리스트 */
-.section-title {
+export const SectionTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 32px;
-}
+`;
 
-.sidebar h3 {
+export const SidebarTitle = styled.h3`
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
-}
+`;
 
-.sidebar p {
+export const SidebarText = styled.p`
   font-size: 13px;
   color: #555;
-}
+`;
 
-.sidebar ul {
+export const SidebarList = styled.ul`
   list-style: disc;
   padding-left: 24px;
   padding-bottom: 32px;
@@ -139,36 +151,38 @@ header.header {
   font-weight: 400;
   color: #7b8292;
   margin-bottom: 8px;
-}
+`;
 
-/*최근 게시글 카드 */
-.post-card {
+/* ========================
+   Post Card
+   ======================== */
+export const PostCard = styled.div`
   background: #f9fafb;
   border-radius: 8px;
   padding: 12px;
   margin-top: 12px;
   height: 91px;
-  width: 100%; 
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-}
+`;
 
-.section-title {
+export const PostSectionTitle = styled.h4`
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 8px;
-}
+`;
 
-.post-header {
+export const PostHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 6px;
-}
+`;
 
-.category {
+export const Category = styled.span`
   width: 64px;
   height: 18px;
   padding: 2px 6px;
@@ -176,35 +190,28 @@ header.header {
   border: 0.75px solid #BCC4D5;
   font-size: 10px;
   text-align: center;
-}
+`;
 
-.tag {
+export const Tag = styled.span`
   font-size: 12px;
   font-weight: 600;
   padding: 2px 6px;
   border-radius: 6px;
   color: #fff;
-}
+  background: ${({ type }) => 
+    type === "hot" ? "#ff4d4f" : "#2563eb"};
+`;
 
-.tag.hot {
-  background: #ff4d4f;
-}
-
-.tag.official,
-.tag.news {
-  background: #2563eb;
-}
-
-.title {
+export const Title = styled.h5`
   font-family: Pretendard;
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
   margin-bottom: 8px;
-}
+`;
 
-.meta {
+export const Meta = styled.span`
   font-size: 12px;
   color: #949494;
-}
+`;

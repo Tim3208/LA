@@ -5,6 +5,7 @@ import theme from "./style/theme";
 // 페이지 모음
 import MainPage from "./pages/MainPage";
 import AiPage from "./pages/AiPage";
+import ListPage from "./pages/ListPage";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <Routes>
         {/* 메인 */}
         <Route path="/" element={<MainPage />} />
+
+        {/* 게시판 목록 페이지 */}
+        <Route path="/list" element={<ListPage />} />
 
         {/* Ai 페이지 */}
         <Route path="/ai" element={<AiPage />} />
