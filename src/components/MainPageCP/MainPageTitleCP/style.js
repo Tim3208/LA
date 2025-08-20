@@ -1,8 +1,14 @@
 import styled from "styled-components";
 
 export const MainPageTitleCPMainStyle = styled.main`
-  margin: 4rem auto;
-  max-width: 1440px;
+  background: var(--main-page-bg);
+  background: #aaf;
+  padding: 0 2rem;
+
+  .container {
+    margin: 4rem auto;
+    max-width: 1440px;
+  }
 
   // AI 추천 카드
   .ai-card {
