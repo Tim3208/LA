@@ -35,25 +35,52 @@ const MainLayOutHeader = () => {
               />
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a className="text-gray-700 hover:text-blue-100 font-medium">
+              {/* FIXME: /calendar로 링크 수정 */}
+              <Link
+                to="/"
+                className={`font-medium ${
+                  isActive("/calendar") ? "text-blue-100" : "text-gray-90"
+                }`}
+              >
                 캘린더
-              </a>
-              <a className="text-gray-700 hover:text-blue-100 font-medium">
+              </Link>
+              <Link
+                to="/list"
+                className={`font-medium ${
+                  isActive("/list") ? "!text-blue-100" : "text-gray-90"
+                }`}
+              >
                 게시판
-              </a>
-              <a className="text-blue-100 hover:text-blue-700 font-bold flex items-center gap-1">
+              </Link>
+              <Link
+                to="/ai"
+                className={`font-bold flex items-centeer gap-1 ${
+                  isActive("/ai") ? "!text-blue-100" : "text-gray-90"
+                }`}
+              >
                 <Sparkles className="w-4 h-4" />
                 AI 큐레이터
-              </a>
-              <a className="text-gray-700 hover:text-blue-100 font-medium">
+              </Link>
+              {/* FIXME: /myPage로 링크 수정 */}
+              <Link
+                to="/"
+                className={`font-medium ${
+                  isActive("/myPage") ? "!text-blue-100" : "text-gray-90"
+                }`}
+              >
                 마이페이지
-              </a>
-              <a className="text-gray-700 hover:text-blue-100 font-medium">
+              </Link>
+              {/* FIXME: /faq로 링크 수정 */}
+              <Link
+                to="/"
+                className={`font-medium ${
+                  isActive("/faq") ? "!text-blue-100" : "text-gray-90"
+                }`}
+              >
                 FAQ
-              </a>
+              </Link>
             </nav>
             <div className="flex items-center gap-2">
-              {/* FIXME: ButtonCP 추가 */}
               <Button
                 variant="outline"
                 size="sm"
