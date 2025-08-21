@@ -9,14 +9,6 @@ import {
   RecCards,
   RecItem,
   Chatbot,
-  QuickMenu,
-  Popular,
-  PostCard,
-  PostHeader,
-  Category,
-  Tag,
-  Title,
-  Meta,
 } from "./style";
 import { useState } from "react";
 import {
@@ -26,9 +18,15 @@ import {
   Heart,
   Sparkles,
   MessageSquare,
+  Bell,
+  Users,
+  ChevronRight,
+  Flame,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 /**
  * 메인 페이지 카드 레이아웃 컴포넌트
@@ -40,25 +38,51 @@ const MainPageCardsCP = () => {
   const handleLikesClick = () => {
     setHeartCount(heartCount + 1);
   };
+  const hotPosts = [
+    {
+      id: 1,
+      title: "강남구 맛집 추천해주세요!",
+      category: "자유게시판",
+      comments: 23,
+      likes: 45,
+      time: "2시간 전",
+    },
+    {
+      id: 2,
+      title: "[홍보] 지역 소상공인 지원 프로그램 안내",
+      category: "홍보게시판",
+      comments: 12,
+      likes: 67,
+      time: "4시간 전",
+    },
+    {
+      id: 3,
+      title: "강남구 교통 개선 관련 소식",
+      category: "뉴스게시판",
+      comments: 34,
+      likes: 89,
+      time: "6시간 전",
+    },
+  ];
 
   return (
     <MainPageCardsCPMainStyle className="flexCenter">
       <Container>
         <ContentColumn>
-          <div>
+          <div className="left-content">
             {/* Card: 다가오는 이벤트 */}
             <Events>
               <div>
                 <div>
                   <div>
-                    <Calendar className="text-blue-100" />
+                    <Calendar />
                     <h3>다가오는 이벤트</h3>
                   </div>
                   <div className="subtitle">
                     {position}에서 열리는 행사와 축제
                   </div>
                 </div>
-                <ViewAll className="hover:cursor-pointer">
+                <ViewAll className="hover:cursor-pointer hover:text-blue-100">
                   전체보기 &gt;
                 </ViewAll>
               </div>
@@ -119,7 +143,7 @@ const MainPageCardsCP = () => {
                   </div>
                   <p>당신만을 위한 개인화된 행사 추천</p>
                 </div>
-                <ViewAll className="hover:cursor-pointer">
+                <ViewAll className="hover:cursor-pointer text-blue-100">
                   전체보기 &gt;
                 </ViewAll>
               </div>
@@ -207,12 +231,12 @@ const MainPageCardsCP = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  {/* <Link href="/ai?tab=chatbot"> */}
-                  <Button size="sm" className="bg-blue-100 hover:bg-blue-110">
-                    <MessageSquare className="w-4 h-4" />
-                    지금 대화하기
-                  </Button>
-                  {/* </Link> */}
+                  <Link href="/ai?tab=chatbot">
+                    <Button size="sm" className="bg-blue-100 hover:bg-blue-110">
+                      <MessageSquare className="w-4 h-4" />
+                      지금 대화하기
+                    </Button>
+                  </Link>
                   <Button size="sm" variant="outline">
                     예시 보기
                   </Button>
@@ -221,26 +245,99 @@ const MainPageCardsCP = () => {
             </Recommendations>
           </div>
 
-          <div>
-            {/* Card: 빠른 메뉴 */}
-            <QuickMenu>
-              <h4>빠른 메뉴</h4>
-              <button>행사 찾기</button>
-              <button>챗봇 바로가기</button>
-            </QuickMenu>
+          <div className="right-content">
+            {/* Quick Menu */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">빠른 메뉴</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col md:flex-row flex-wrap md:gap-3 gap-2">
+                <Link to="/board/free" className="w-full md:w-[calc(50%-8px)]">
+                  <Button
+                    variant="outline"
+                    className="w-full h-20 flex flex-col items-center gap-1"
+                  >
+                    <MessageSquare style={{ width: "20px", height: "20px" }} />
+                    <span className="text-base">자유게시판</span>
+                  </Button>
+                </Link>
+                <Link
+                  to="/board/promotion"
+                  className="w-full md:w-[calc(50%-8px)]"
+                >
+                  <Button
+                    variant="outline"
+                    className="w-full h-20 flex flex-col items-center gap-1"
+                  >
+                    <Bell style={{ width: "20px", height: "20px" }} />
+                    <span className="text-base">홍보게시판</span>
+                  </Button>
+                </Link>
+                <Link to="/board/hots" className="w-full md:w-[calc(50%-8px)]">
+                  <Button
+                    variant="outline"
+                    className="w-full h-20 flex flex-col items-center gap-1"
+                  >
+                    <Flame style={{ width: "20px", height: "20px" }} />
+                    <span className="text-base">인기게시판</span>
+                  </Button>
+                </Link>
+                <Link to="/ai" className="w-full md:w-[calc(50%-8px)]">
+                  <Button
+                    variant="outline"
+                    className="w-full h-20 flex flex-col items-center gap-1"
+                  >
+                    <Bot style={{ width: "20px", height: "20px" }} />
+                    <span className="text-base">AI 큐레이터</span>
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-            {/* Card: 인기 게시글 */}
-            <Popular>
-              <h4>인기 게시글</h4>
-              <PostCard>
-                <PostHeader>
-                  <Category>자유</Category>
-                  <Tag className="hot">HOT</Tag>
-                </PostHeader>
-                <Title>게시글 제목</Title>
-                <Meta>닉네임 · 1시간 전</Meta>
-              </PostCard>
-            </Popular>
+            {/* Hot Posts */}
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-2xl">
+                  <Flame />
+                  인기 게시글
+                </CardTitle>
+
+                <Link
+                  to="/board/hot"
+                  className="flex justify-end hover:text-blue-100"
+                >
+                  더보기 <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {hotPosts.map((post) => (
+                  <div
+                    key={post.id}
+                    className="p-3 bg-mainPageBg rounded-lg hover:bg-gray-30 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="outline" className="text-xs">
+                        {post.category}
+                      </Badge>
+                      <span className="text-xs text-gray-500">{post.time}</span>
+                    </div>
+                    <h4 className="font-medium text-sm text-gray-900 mb-2 line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                      <span className="flex items-center gap-1">
+                        <MessageSquare className="w-3 h-3" />
+                        {post.comments}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Heart className="w-3 h-3" />
+                        {post.likes}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           </div>
         </ContentColumn>
       </Container>

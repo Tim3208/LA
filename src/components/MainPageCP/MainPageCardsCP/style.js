@@ -18,14 +18,25 @@ export const ContentColumn = styled.div`
   gap: 2rem;
 
   & > div {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
+  & > div:nth-child(1) {
+    flex: 1;
+  }
+
   & > div:nth-child(2) {
-    width: 380px;
+    width: 384px;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
   }
 `;
 
@@ -45,6 +56,12 @@ export const Events = styled.section`
     justify-content: space-between;
   }
 
+  & > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   /* Icon + Title */
   & > div > div > div:nth-child(1) {
     display: flex;
@@ -61,7 +78,6 @@ export const Events = styled.section`
 export const ViewAll = styled.a`
   display: block;
   text-align: right;
-  color: var(--blue-100);
   margin-top: 10px;
 `;
 
@@ -70,7 +86,7 @@ export const EventList = styled.ul`
   flex-direction: column;
   gap: 1rem;
 
-  li {
+  & li {
     display: flex;
     background: var(--gray-30);
     padding: 20px;
@@ -138,7 +154,7 @@ export const Recommendations = styled.section`
   flex-direction: column;
   gap: 2rem;
 
-  h3 {
+  & h3 {
     font-size: 1.5rem;
     font-weight: 700;
   }
@@ -148,6 +164,19 @@ export const RecCards = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
+  flex-direction: row;
+
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: row;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const RecItem = styled.div`
@@ -197,32 +226,6 @@ export const RecItem = styled.div`
   }
 `;
 
-// ----- 빠른 메뉴 -----
-export const QuickMenu = styled.div`
-  flex: 1;
-  background: #fff;
-  padding: 16px;
-  border-radius: 10px;
-  height: 280px;
-  h4 {
-    margin-bottom: 12px;
-    font-size: 16px;
-  }
-  button {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: #f9fafb;
-    cursor: pointer;
-    &:hover {
-      background: #f1f5ff;
-    }
-  }
-`;
-
 // ----- 챗봇 -----
 export const Chatbot = styled.div`
   display: flex;
@@ -249,67 +252,4 @@ export const Chatbot = styled.div`
       color: var(--gray-70);
     }
   }
-`;
-
-// ----- 인기 게시글 -----
-export const Popular = styled.div`
-  flex: 1;
-  background: #fff;
-  padding: 16px;
-  border-radius: 10px;
-  margin-top: -210px;
-  height: 400px;
-  h4 {
-    margin-bottom: 10px;
-  }
-`;
-
-export const PostCard = styled.div`
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 14px;
-  margin-top: 12px;
-`;
-
-export const PostHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-`;
-
-export const Category = styled.span`
-  width: 64px;
-  height: 18px;
-  padding: 2px 6px;
-  border-radius: 6px;
-  border: 0.75px solid #bcc4d5;
-  font-size: 10px;
-`;
-
-export const Tag = styled.span`
-  font-size: 12px;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 6px;
-  color: #fff;
-
-  &.hot {
-    background: #ff4d4f;
-  }
-  &.official,
-  &.news {
-    background: var(--blue-100);
-  }
-`;
-
-export const Title = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-`;
-
-export const Meta = styled.div`
-  font-size: 12px;
-  color: #888;
 `;
