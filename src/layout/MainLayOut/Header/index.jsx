@@ -16,11 +16,12 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { LocationSelector } from "@/components/ui/location-selector";
 import { useState } from "react";
+import { useLocationContext } from "@/contexts/LocationContext";
 
 const MainLayOutHeader = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
-  const [selectedLocation, setSelectedLocation] = useState("강남구");
+  const { selectedLocation, setSelectedLocation } = useLocationContext();
 
   return (
     <MainLayOutHeaderStyled>

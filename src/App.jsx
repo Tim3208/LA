@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./style/globalstyle";
-import theme from "./style/theme";
+import { LocationProvider } from "@/contexts/LocationContext";
 
 // 페이지 모음
 import MainPage from "./pages/MainPage";
@@ -9,19 +9,21 @@ import ListPage from "./pages/ListPage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        {/* 메인 */}
-        <Route path="/" element={<MainPage />} />
+    <LocationProvider>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          {/* 메인 */}
+          <Route path="/" element={<MainPage />} />
 
-        {/* 게시판 목록 페이지 */}
-        <Route path="/list" element={<ListPage />} />
+          {/* 게시판 목록 페이지 */}
+          <Route path="/list" element={<ListPage />} />
 
-        {/* Ai 페이지 */}
-        <Route path="/ai" element={<AiPage />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Ai 페이지 */}
+          <Route path="/ai" element={<AiPage />} />
+        </Routes>
+      </BrowserRouter>
+    </LocationProvider>
   );
 }
 
