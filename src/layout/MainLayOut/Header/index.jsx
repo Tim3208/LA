@@ -13,8 +13,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { LocationSelector } from "@/components/location-selector";
 
 const MainLayOutHeader = () => {
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
+  const [selectedLocation, setSelectedLocation] = useState("강남구");
+
   return (
     <MainLayOutHeaderStyled>
       {/* Header */}
@@ -23,11 +29,10 @@ const MainLayOutHeader = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-blue-100">LA</h1>
-              {/* FIXME: 지역 선택 드랍다운 메뉴 추가
               <LocationSelector
                 selectedLocation={selectedLocation}
                 onLocationChange={setSelectedLocation}
-              /> */}
+              />
             </div>
             <nav className="hidden md:flex space-x-8">
               <a className="text-gray-700 hover:text-blue-100 font-medium">
