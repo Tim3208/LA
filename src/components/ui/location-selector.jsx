@@ -54,7 +54,7 @@ export function LocationSelector({ selectedLocation, onLocationChange }) {
             key={location}
             onClick={() => onLocationChange(location)}
             className={
-              selectedLocation === location ? "bg-blue-50 text-blue-600" : ""
+              selectedLocation === location ? "bg-blue-50 text-blue-100" : ""
             }
           >
             {location}

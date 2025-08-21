@@ -14,7 +14,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { LocationSelector } from "@/components/location-selector";
+import { LocationSelector } from "@/components/ui/location-selector";
+import { useState } from "react";
 
 const MainLayOutHeader = () => {
   const location = useLocation();
@@ -39,7 +40,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/"
                 className={`font-medium ${
-                  isActive("/calendar") ? "text-blue-100" : "text-gray-90"
+                  isActive("/calendar") ? "text-blue-100" : "!text-gray-90"
                 }`}
               >
                 캘린더
@@ -47,7 +48,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/list"
                 className={`font-medium ${
-                  isActive("/list") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/list") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 게시판
@@ -55,7 +56,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/ai"
                 className={`font-bold flex items-centeer gap-1 ${
-                  isActive("/ai") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/ai") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 <Sparkles className="w-4 h-4" />
@@ -65,7 +66,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/"
                 className={`font-medium ${
-                  isActive("/myPage") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/myPage") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 마이페이지
@@ -74,7 +75,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/"
                 className={`font-medium ${
-                  isActive("/faq") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/faq") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 FAQ
