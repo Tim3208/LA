@@ -151,7 +151,7 @@ const AiPage = () => {
   return (
     <AiPageMainStyle>
       <MainLayOut>
-        <section className="flex justify-center bg-mainPageBg px-4 sm:px-0 py-8">
+        <section className="flex justify-center bg-mainPageBg px-4 sm:px-0 py-16">
           <Tabs
             defaultValue="recommendations"
             className="flex flex-col w-full max-w-1440 gap-y-8"

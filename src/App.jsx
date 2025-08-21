@@ -6,6 +6,7 @@ import { LocationProvider } from "@/contexts/LocationContext";
 import MainPage from "./pages/MainPage";
 import AiPage from "./pages/AiPage";
 import ListPage from "./pages/ListPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
 
           {/* 게시판 목록 페이지 */}
           <Route path="/list" element={<ListPage />} />
+
+          {/* 마이페이지 */}
+          <Route path="/myPage" element={<MyPage />} />
 
           {/* Ai 페이지 */}
           <Route path="/ai" element={<AiPage />} />

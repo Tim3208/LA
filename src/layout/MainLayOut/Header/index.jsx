@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { LocationSelector } from "@/components/ui/location-selector";
+import { LocationSelector } from "@/components/ui/locationSelector";
 import { useState } from "react";
 import { useLocationContext } from "@/contexts/LocationContext";
 
@@ -63,9 +63,8 @@ const MainLayOutHeader = () => {
                 <Sparkles className="w-4 h-4" />
                 AI 큐레이터
               </Link>
-              {/* FIXME: /myPage로 링크 수정 */}
               <Link
-                to="/"
+                to="/myPage"
                 className={`font-medium ${
                   isActive("/myPage") ? "!text-blue-100" : "!text-gray-90"
                 }`}
