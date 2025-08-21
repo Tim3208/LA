@@ -1,6 +1,6 @@
-import MainPageTitleCP from "../../components/MainPageCP/MainPageTitleCP";
 import MainLayOut from "../../layout/MainLayOut";
 import styled from "styled-components";
+import { useLocationContext } from "@/contexts/LocationContext";
 
 import {
   Container,
@@ -30,16 +30,15 @@ import {
 } from "./style";
 
 import {
- MessageSquare,
- Bell,
- Users,
- Newspaper,
- TrendingUp
-
+  MessageSquare,
+  Bell,
+  Users,
+  Newspaper,
+  TrendingUp,
 } from "lucide-react";
 
 const IconWrapper = styled.div`
-  background-color: #2563eb ;
+  background-color: #2563eb;
   padding: 12px;
   border-radius: 8px;
   display: inline-flex;
@@ -49,8 +48,8 @@ const IconWrapper = styled.div`
   height: 48px;
 `;
 
-
 const BoardListPage = () => {
+  const { selectedLocation, setSelectedLocation } = useLocationContext();
   return (
     <MainLayOut>
       <Container>
@@ -65,7 +64,7 @@ const BoardListPage = () => {
                 <BoardTitle>자유게시판</BoardTitle>
                 <BoardText>자유롭게 소통하는 공간</BoardText>
               </TextWrapper>
-            </InfoWrapper>   
+            </InfoWrapper>
             <InfoTodayWrapper>
               <Info>총 1,234개 게시글</Info>
               <Today>오늘 +45</Today>
@@ -75,7 +74,7 @@ const BoardListPage = () => {
           <BoardCard>
             <InfoWrapper>
               <IconWrapper>
-                <Bell size={48} color="white"/>
+                <Bell size={48} color="white" />
               </IconWrapper>
               <TextWrapper>
                 <BoardTitle>홍보게시판</BoardTitle>
@@ -91,11 +90,11 @@ const BoardListPage = () => {
           <BoardCard>
             <InfoWrapper>
               <IconWrapper>
-                <Users size={48} color="white"/>
+                <Users size={48} color="white" />
               </IconWrapper>
               <TextWrapper>
-              <BoardTitle>지역홍보게시판</BoardTitle>
-              <BoardText>공식 지역 홍보 게시물</BoardText>
+                <BoardTitle>지역홍보게시판</BoardTitle>
+                <BoardText>공식 지역 홍보 게시물</BoardText>
               </TextWrapper>
             </InfoWrapper>
             <InfoTodayWrapper>
@@ -107,12 +106,12 @@ const BoardListPage = () => {
           <BoardCard>
             <InfoWrapper>
               <IconWrapper>
-                <Newspaper size={48} color="white"/>
+                <Newspaper size={48} color="white" />
               </IconWrapper>
-              <TextWrapper> 
+              <TextWrapper>
                 <BoardTitle>뉴스게시판</BoardTitle>
                 <BoardText>지역 관련 뉴스와 소식</BoardText>
-              </TextWrapper> 
+              </TextWrapper>
             </InfoWrapper>
             <InfoTodayWrapper>
               <Info>총 890개 게시글</Info>
@@ -123,10 +122,10 @@ const BoardListPage = () => {
           <BoardCard>
             <InfoWrapper>
               <IconWrapper>
-                <TrendingUp size={48} color="white"/>
+                <TrendingUp size={48} color="white" />
               </IconWrapper>
               <TextWrapper>
-              <BoardTitle>핫게시판</BoardTitle>
+                <BoardTitle>핫게시판</BoardTitle>
                 <BoardText>인기 있는 게시글 모음</BoardText>
               </TextWrapper>
             </InfoWrapper>
@@ -142,8 +141,8 @@ const BoardListPage = () => {
           {/* Recent Posts */}
           <Recent>
             <SectionHeaderWrapper>
-            <SectionHeader>최근 게시글</SectionHeader>
-            <SectionSubtitle>강남구의 최신 소식</SectionSubtitle>
+              <SectionHeader>최근 게시글</SectionHeader>
+              <SectionSubtitle>{selectedLocation}의 최신 소식</SectionSubtitle>
             </SectionHeaderWrapper>
 
             <PostCard>
@@ -191,4 +190,3 @@ const BoardListPage = () => {
 };
 
 export default BoardListPage;
-

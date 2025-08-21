@@ -27,13 +27,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useLocationContext } from "@/contexts/LocationContext";
 
 /**
  * 메인 페이지 카드 레이아웃 컴포넌트
  */
 const MainPageCardsCP = () => {
-  const [position, setPosition] = useState("강남구");
   const [heartCount, setHeartCount] = useState(0);
+  const { selectedLocation, setSelectedLocation } = useLocationContext();
 
   const handleLikesClick = () => {
     setHeartCount(heartCount + 1);
@@ -79,7 +80,7 @@ const MainPageCardsCP = () => {
                     <h3>다가오는 이벤트</h3>
                   </div>
                   <div className="subtitle">
-                    {position}에서 열리는 행사와 축제
+                    {selectedLocation}에서 열리는 행사와 축제
                   </div>
                 </div>
                 <ViewAll className="hover:cursor-pointer hover:text-blue-100">
