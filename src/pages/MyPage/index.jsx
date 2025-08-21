@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLocationContext } from "@/contexts/LocationContext";
+import { ProfileEditModal } from "@/components/MyPageCP/profileEditModal";
 
 export default function MyPage() {
   const { selectedLocation, setSelectedLocation } = useLocationContext();
@@ -115,6 +116,12 @@ export default function MyPage() {
     },
   ];
 
+  const handleProfileSave = (updatedProfile) => {
+    setUser((prev) => ({ ...prev, ...updatedProfile }));
+    // FIXME: 실제 API 호출을 통해 서버에 저장
+    console.log("프로필 업데이트:", updatedProfile);
+  };
+
   return (
     <div className="min-h-screen bg-mainPageBg">
       {/* Header */}
@@ -179,7 +186,10 @@ export default function MyPage() {
                     <span>가입일: {user.joinDate}</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-transparent bg-blue-100 text-white hover:bg-blue-110 onClick={() => setIsEditModalOpen(true)}">
+                <Button
+                  className="w-full mt-4 bg-transparent bg-blue-100 text-white hover:bg-blue-110"
+                  onClick={() => setIsEditModalOpen(true)}
+                >
                   <Edit className="w-4 h-4 mr-2" />
                   프로필 수정
                 </Button>
@@ -413,6 +423,14 @@ export default function MyPage() {
           </div>
         </div>
       </main>
+
+      {/* 프로필 수정 모달 */}
+      <ProfileEditModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        currentProfile={user}
+        onSave={handleProfileSave}
+      />
     </div>
   );
 }
