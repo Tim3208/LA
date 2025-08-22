@@ -37,13 +37,11 @@ export const SectionTitle = styled.div`
 `;
 
 export const RecommendLeft = styled.div`
-
   font-weight: 700;
   font-size: 24px;
   color: #2563eb;
   gap: 8px;
 `;
-
 
 export const Badge = styled.span`
   display: inline-flex;
@@ -58,7 +56,6 @@ export const Badge = styled.span`
 `;
 
 export const RecommendRight = styled.div`
-
   gap: 18px;
 `;
 
@@ -69,9 +66,6 @@ export const ButtonSmall = styled.span`
   border-radius: 8px;
   cursor: pointer;
 `;
-
-
-
 
 /* ========== Board List ========== */
 export const BoardList = styled.section`
@@ -187,4 +181,3 @@ export const PageButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
 `;
-

@@ -3,11 +3,12 @@ import { ButtonCP } from "../../_common/ButtonCP";
 import { useState } from "react";
 import { OutLineButtonCP } from "@/components/_common/OutLineButtonCP";
 import { Bot, Calendar, Sparkles, TrendingUp } from "lucide-react";
+import { useLocationContext } from "@/contexts/LocationContext";
 /**
  * 메인 페이지 타이틀 컴포넌트
  */
 const MainPageTitleCP = () => {
-  const [position, setPosition] = useState("강남구");
+  const { selectedLocation, setSelectedLocation } = useLocationContext();
 
   return (
     <MainPageTitleCPMainStyle className="flexCenter">
@@ -18,7 +19,8 @@ const MainPageTitleCP = () => {
             <p className="label">AI 큐레이터 서비스</p>
             <div>
               <h2 className="title">
-                AI가 찾아주는 <span className="text-blue-60">{position}</span>의
+                AI가 찾아주는{" "}
+                <span className="text-blue-60">{selectedLocation}</span>의
                 <br />
                 완벽한 행사 추천
               </h2>

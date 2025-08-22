@@ -14,11 +14,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { LocationSelector } from "@/components/ui/locationSelector";
+import { useState } from "react";
+import { useLocationContext } from "@/contexts/LocationContext";
 
 const MainLayOutHeader = () => {
   const location = useLocation();
-
   const isActive = (path) => location.pathname === path;
+  const { selectedLocation, setSelectedLocation } = useLocationContext();
 
   return (
     <MainLayOutHeaderStyled>
@@ -28,18 +31,17 @@ const MainLayOutHeader = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-blue-100">LA</h1>
-              {/* FIXME: 지역 선택 드랍다운 메뉴 추가
               <LocationSelector
                 selectedLocation={selectedLocation}
                 onLocationChange={setSelectedLocation}
-              /> */}
+              />
             </div>
             <nav className="hidden md:flex space-x-8">
               {/* FIXME: /calendar로 링크 수정 */}
               <Link
                 to="/"
                 className={`font-medium ${
-                  isActive("/calendar") ? "text-blue-100" : "text-gray-90"
+                  isActive("/calendar") ? "text-blue-100" : "!text-gray-90"
                 }`}
               >
                 캘린더
@@ -47,7 +49,7 @@ const MainLayOutHeader = () => {
               <Link
                 to="/list"
                 className={`font-medium ${
-                  isActive("/list") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/list") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 게시판
@@ -55,26 +57,24 @@ const MainLayOutHeader = () => {
               <Link
                 to="/ai"
                 className={`font-bold flex items-centeer gap-1 ${
-                  isActive("/ai") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/ai") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 <Sparkles className="w-4 h-4" />
                 AI 큐레이터
               </Link>
-              {/* FIXME: /myPage로 링크 수정 */}
               <Link
-                to="/"
+                to="/myPage"
                 className={`font-medium ${
-                  isActive("/myPage") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/myPage") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 마이페이지
               </Link>
-              {/* FIXME: /faq로 링크 수정 */}
               <Link
-                to="/"
+                to="/faq"
                 className={`font-medium ${
-                  isActive("/faq") ? "!text-blue-100" : "text-gray-90"
+                  isActive("/faq") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 FAQ
