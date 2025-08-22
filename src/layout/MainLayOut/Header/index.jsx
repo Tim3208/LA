@@ -71,9 +71,8 @@ const MainLayOutHeader = () => {
               >
                 마이페이지
               </Link>
-              {/* FIXME: /faq로 링크 수정 */}
               <Link
-                to="/"
+                to="/faq"
                 className={`font-medium ${
                   isActive("/faq") ? "!text-blue-100" : "!text-gray-90"
                 }`}

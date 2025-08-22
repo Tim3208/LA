@@ -137,10 +137,6 @@ export default function MyPage() {
               </Link>
               <h1 className="text-2xl font-bold text-blue-100">마이페이지</h1>
             </div>
-            <Button variant="outline">
-              <Settings className="w-4 h-4 mr-2" />
-              설정
-            </Button>
           </div>
         </div>
       </header>
