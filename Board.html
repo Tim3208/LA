@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시판</title>
+  <link rel="stylesheet" href="Board.css">
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="header"></header>
+
+  <main class="container">
+    <!-- 왼쪽 메인 -->
+    <div class="main-content">
+      <!-- AI 맞춤 추천 -->
+      <section class="recommend">
+        <div class="section-title">
+          <div class="recommend-left">
+            AI 맞춤 추천 <span class="badge">개인화</span>
+          </div>
+          <div class="recommend-right">
+            <span class="refresh">새로고침</span>
+            <span class="hidden">숨기기</span>
+          </div>
+        </div>
+
+        <section class="board-list" id="recommendList">
+          <!-- JS로 게시글 렌더링 -->
+        </section>
+      </section>
+
+     
+
+        <!-- 검색 및 정렬 -->
+        <div class="toolbar">
+          <div class="section-left">
+            + 글쓰기
+          </div>
+          <input type="text" placeholder="게시글 검색...">
+          <div class="filters">
+            <button>최신순</button>
+            <button>인기순</button>
+            <button class="comments">댓글순</button>
+          </div>
+        </div>
+
+        <section class="board-list" id="postList">
+          <!-- JS로 게시글 렌더링 -->
+        </section>
+      </section>
+
+      <!-- 페이지네이션 -->
+      <div class="pagination">
+        <button>&lt; 이전</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>다음 &gt;</button>
+      </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+      // AI 맞춤 추천 더미 데이터
+      const recommendPosts = [
+        { id: 1, category:"홍보게시판", match: "66%매치", title: "[홍보] 새로 오픈한 카페 방문해보세요!", desc:"강남역 2번 출구 근처 새 카페 오픈, 이벤트 진행 중!", reason :"추천 이유: 최근 맛집/카페 관련 게시글을 자주 보셨어요."},
+        { id: 2, category:"홍보게시판", match: "68%매치", tag:"공식", title: "[홍보] 지역 소상공인 지원 프로그램 안내드립니다.", desc:"강남구 소상공인 분들을 위한 다양한 지원책을 소개합니다.", reason:"추천 이유: 공식 계정의 신뢰할 수 있는 공지예요." }
+      ];
+
+      const recommendList = document.getElementById("recommendList");
+      recommendPosts.forEach(post => {
+        const article = document.createElement("article");
+        article.classList.add("board-item", "recommend-item");
+
+        article.innerHTML = `
+          <div class="board-header">
+            ${post.category ? `<span class="badge-category">${post.category}</span>` : ""}
+            ${post.match ? `<span class="badge-match">${post.match}</span>` : ""}
+            ${post.tag ? `<span class="badge-tag">${post.tag}</span>` : ""}
+          </div>
+          <div class="board-title">${post.title}</div>
+          ${post.desc ? `<p class="board-desc">${post.desc}</p>` : ""}
+          ${post.reason ? `<p class="board-reason">${post.reason}</p>` : ""}
+        `;
+        recommendList.appendChild(article);
+      });
+
+      // 일반 게시글 리스트 더미 데이터
+      const posts = [
+        { id: 1, hot: true, news: true, tags:["#교통", "#공사", "#뉴스"], title: "강남구 교통 개선 관련 최신 소식", desc: "강남대로 일대 교통 체계 개선 공사가 다음 달부터 시작됩니다. 우회 경로를 미리 확인해주세요.", meta:"뉴스봇 · 8시간 전"},
+        { id: 2, hot: true, news: false, tags:["#공지", "#공식", "#지원"], title: "[홍보] 지역 소상공인 지원 프로그램 안내드립니다.", desc: "강남구에서 소상공인을 위한 다양한 지원 프로그램을 운영하고 있습니다. 자세한 내용은 구청 홈페이지를 확인해주세요.", meta:"강남구청 · 9시간 전" },
+        { id: 3, hot: false, news: false, tags:["#교통", "#맛집", "#활동"], title: "게시물 제목을 입력하는 란입니다", desc: "게시물에 대한 내용을 요약해서 적는 란입니다.", meta:"이용자 · 10시간 전" },
+        { id: 4, hot: false, news: false, tags:["#공지", "#행사"], title: "게시물 제목을 입력하는 란입니다", desc: "게시물의 내용이 들어가는 공간입니다.", meta:"뉴스봇 · 1일 전" },
+        { id: 5, hot: false, news: false, tags:["#소통", "#잡담"], title: "게시물 제목을 입력하는 란입니다", desc: "게시물의 내용이 들어가는 공간입니다.", meta:"이용자 · 2일 전" }   
+      ];
+
+      const postList = document.getElementById("postList");
+      posts.forEach(post => {
+        const article = document.createElement("article");
+        article.classList.add("board-item");
+        if (post.hot) article.classList.add("hot");
+        if (post.news) article.classList.add("news");
+
+        article.innerHTML = `
+          <div class="board-header">
+            ${post.hot ? `<span class="badge hot">HOT</span>` : ""}
+            ${post.news ? `<span class="badge new">뉴스</span>` : ""}
+            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join(" ")}
+          </div>
+          <div class="board-title">${post.title}</div>
+          <p class="board-desc">${post.desc}</p>
+          <div class="board-meta">${post.meta || ""}</div>
+        `;
+        postList.appendChild(article);
+      });
+
+      const buttons = document.querySelectorAll(".pagination button");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+  });
+});
+
+    </script>
+
+  </main>
+</body>
+</html>

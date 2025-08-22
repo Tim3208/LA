@@ -46,6 +46,17 @@ export const Container = styled.div`
 /* ========================
    Boards
    ======================== */
+export const IconWrapper = styled.div`
+  background-color: #2563eb ;
+  padding: 12px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+`;
+
 export const Boards = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

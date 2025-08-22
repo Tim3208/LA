@@ -6,6 +6,7 @@ import theme from "./style/theme";
 import MainPage from "./pages/MainPage";
 import AiPage from "./pages/AiPage";
 import ListPage from "./pages/ListPage";
+import BoardPage from "./pages/BoardPage";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
 
         {/* 게시판 목록 페이지 */}
         <Route path="/list" element={<ListPage />} />
+
+        {/* 게시판 페이지 */}
+        <Route path="/board" element={<BoardPage />} />
+
 
         {/* Ai 페이지 */}
         <Route path="/ai" element={<AiPage />} />
