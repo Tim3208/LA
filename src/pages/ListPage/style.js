@@ -37,8 +37,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 384px;
   gap: 32px;
-  padding: 32px;
-  max-width: 1440px;
+  width:1440px;
   margin: 0 auto;
   box-sizing: border-box;
 `;
@@ -72,7 +71,8 @@ export const BoardCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 140px;
+  width:496px;
+  height: 144px;
   box-sizing: border-box;
   box-shadow: 0px 0px 3px 0px #00000040;
 
@@ -145,6 +145,7 @@ export const SidebarBox = styled.div`
 
 export const Recent = styled(SidebarBox)`
   height: 420px;
+  weight: 384px;
   padding: 24px;
   box-sizing: border-box;
   box-shadow: 0px 0px 5px 0px #0000004D;

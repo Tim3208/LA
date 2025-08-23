@@ -22,7 +22,7 @@ function App() {
           {/* 게시판 목록 페이지 */}
           <Route path="/list" element={<ListPage />} />
 
-          <Route path="/board" element={<BoardPage />} />
+          <Route path="/board/:boardId" element={<BoardPage />} />
 
           {/* Ai 페이지 */}
           <Route path="/ai" element={<AiPage />} />

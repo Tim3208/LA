@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MainLayOut from "../../layout/MainLayOut";
 import styled from "styled-components";
+import { boards } from "@/data/boards";
+
 import {
   Container,
   Header,
@@ -11,9 +13,14 @@ import {
   Badge,
   RecommendRight,
   ButtonSmall,
+  RecommendList,
+  RecommendItem,
   BoardList,
   BoardItem,
   BoardHeader,
+  CategoryBadge,
+  MatchBadge,
+  TagBadge,
   BoardTitle,
   BoardDesc,
   BoardReason,
@@ -22,6 +29,9 @@ import {
   Input,
   Filters,
   FilterButton,
+  IconWrapper,
+  Grid2X2Icon,
+  ListIcon,
   Pagination,
   PageButton,
 } from "./style";
@@ -31,12 +41,15 @@ import {
   Clock,
   Heart,
   MessageSquare,
-  Grid2x2,
+  Grid2X2,
   List,
 } from "lucide-react";
 
 const BoardPage = () => {
+  const {boardId} = useParams();
+  const currentBoard = boards.find(board => board.id === String(boardId)) || boards[0];
   const [activePage, setActivePage] = useState(1);
+  const [filter, setFilter] = useState("latest");
 
   const recommendPosts = [
     {
@@ -108,6 +121,7 @@ const BoardPage = () => {
 
   return (
     <MainLayOut>
+      <Header>{currentBoard.title}</Header>
       <Container>
         <RecommendSection>
           <SectionTitle>
@@ -121,59 +135,59 @@ const BoardPage = () => {
             </RecommendRight>
           </SectionTitle>
 
-          <BoardList>
+          <RecommendList>
             {recommendPosts.map((post) => (
-              <BoardItem key={post.id}>
+              <RecommendItem key={post.id}>
                 <BoardHeader>
-                  {post.category && (
-                    <Badge bg="#fff" color="#000">
-                      {post.category}
-                    </Badge>
-                  )}
-                  {post.match && <Badge>{post.match}</Badge>}
-                  {post.tag && <Badge bg="#51A2FF">{post.tag}</Badge>}
+                  {post.category && (<CategoryBadge>{post.category}</CategoryBadge>)}
+                  {post.match && <MatchBadge>{post.match}</MatchBadge>}
+                  {post.tag && <TagBadge>{post.tag}</TagBadge>}
                 </BoardHeader>
                 <BoardTitle>{post.title}</BoardTitle>
                 {post.desc && <BoardDesc>{post.desc}</BoardDesc>}
                 {post.reason && <BoardReason>{post.reason}</BoardReason>}
-              </BoardItem>
+              </RecommendItem>
             ))}
-          </BoardList>
+          </RecommendList>
         </RecommendSection>
 
         <Toolbar>
-          <SectionLeft>+ 글쓰기</SectionLeft>
+          <SectionLeft >+ 글쓰기</SectionLeft>
           <Input placeholder="게시글 검색..." />
           <Filters>
-            <FilterButton>
-              <Clock size={24} color="#000" />
-              최신순
-            </FilterButton>
-            <FilterButton>
-              <Heart size={24} color="#000" />
-              인기순
-            </FilterButton>
-            <FilterButton>
-              <MessageSquare size={24} color="#000" />
-              댓글순
-            </FilterButton>
+              <FilterButton
+    active={filter === "latest"}
+    onClick={() => setFilter("latest")}
+  >
+    <Clock size={24} /> 최신순
+  </FilterButton>
+  <FilterButton
+    active={filter === "popular"}
+    onClick={() => setFilter("popular")}
+  >
+    <Heart size={24} /> 인기순
+  </FilterButton>
+  <FilterButton
+    active={filter === "comment"}
+    onClick={() => setFilter("comment")}
+  >
+    <MessageSquare size={24} /> 댓글순
+  </FilterButton>
           </Filters>
-          <IconWrapper>
-            <Grid2x2 size={20} color="#000" />
-          </IconWrapper>
-          <IconWrapper>
-            <List size={20} color="#000" />
-          </IconWrapper>
+            <IconWrapper>
+            <Grid2X2Icon><Grid2X2 size={24} color="#bcc4d5" /></Grid2X2Icon>
+            <ListIcon><List size={24} color="#fff" /></ListIcon>
+            </IconWrapper>     
         </Toolbar>
 
         <BoardList>
           {posts.map((post) => (
             <BoardItem key={post.id}>
               <BoardHeader>
-                {post.hot && <Badge bg="#ef4444">HOT</Badge>}
-                {post.news && <Badge bg="#f54900">뉴스</Badge>}
+                {post.hot && <Badge type="hot">HOT</Badge>}
+                {post.news && <Badge type="news">뉴스</Badge>}
                 {post.tags.map((tag) => (
-                  <Badge key={tag} bg="#fff" color="#000">
+                  <Badge type="tags" key={tag}>
                     {tag}
                   </Badge>
                 ))}
@@ -189,7 +203,7 @@ const BoardPage = () => {
           <PageButton
             onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
           >
-            이전
+           &lt; 이전
           </PageButton>
           {[1, 2, 3].map((num) => (
             <PageButton
@@ -203,7 +217,7 @@ const BoardPage = () => {
           <PageButton
             onClick={() => setActivePage((prev) => Math.min(prev + 1, 3))}
           >
-            다음
+            다음 &gt;
           </PageButton>
         </Pagination>
       </Container>
