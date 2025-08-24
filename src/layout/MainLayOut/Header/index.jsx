@@ -1,4 +1,3 @@
-import { MainLayOutHeaderStyled } from "./style";
 import {
   Calendar,
   MessageSquare,
@@ -24,7 +23,7 @@ const MainLayOutHeader = () => {
   const { selectedLocation, setSelectedLocation } = useLocationContext();
 
   return (
-    <MainLayOutHeaderStyled>
+    <>
       {/* Header */}
       <header className="bg-white drop-shadow-md">
         <div className="max-w-1440 mx-auto px-4 md:px-0">
@@ -102,7 +101,7 @@ const MainLayOutHeader = () => {
           </div>
         </div>
       </header>
-    </MainLayOutHeaderStyled>
+    </>
   );
 };
 export default MainLayOutHeader;

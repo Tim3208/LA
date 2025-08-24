@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./style/globalstyle";
+import { Toaster } from "sonner";
 import { LocationProvider } from "@/contexts/LocationContext";
 
 // 페이지 모음
@@ -15,6 +16,7 @@ function App() {
     <LocationProvider>
       <BrowserRouter>
         <GlobalStyle />
+        <Toaster />
         <Routes>
           {/* 메인 */}
           <Route path="/" element={<MainPage />} />
