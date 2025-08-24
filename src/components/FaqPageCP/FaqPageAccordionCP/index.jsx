@@ -31,9 +31,19 @@ const Header = styled.button`
   }
 `;
 
+/** 질문버튼 내부 상단 카테고리 표기 뱃지 */
+const Category = styled.span`
+  font-size: 12px;
+  background: var(--blue-light-2);
+  color: var(--blue-100);
+  padding: 6px 12px;
+  border-radius: 16px;
+`;
+
 /** 질문버튼 내부 question 내용 */
 const Question = styled.span`
   font-size: 1.2rem;
+  padding-left: 3px;
   font-weight: 500;
 `;
 
@@ -83,7 +93,10 @@ function SimpleAccordionCP({ items }) {
         return (
           <Item key={item.id}>
             <Header onClick={() => toggleItem(item.id)}>
-              <Question>{item.question}</Question>
+              <div className="flex flex-col flex-start items-start gap-2">
+                <Category>{item.category}</Category>
+                <Question>{item.question}</Question>
+              </div>
               <StyledIcon>
                 <ChevronDown isOpen={isOpen} />
               </StyledIcon>

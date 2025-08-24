@@ -1,6 +1,7 @@
 import MainLayOutFooter from "./Footer";
 import MainLayOutHeader from "./Header";
 
+/** Header, Footer를 배치하고 사이에 <div>{children}</div> 부여하는 레이아웃*/
 const MainLayOut = ({ children }) => {
   return (
     <div>
