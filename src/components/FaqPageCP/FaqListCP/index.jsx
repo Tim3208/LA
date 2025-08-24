@@ -159,7 +159,7 @@ const FaqListCP = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          filteredFaqs.map((faq) => <SimpleAccordionCP items={filteredFaqs} />)
+          <SimpleAccordionCP items={filteredFaqs} />
         )}
       </FaqsList>
     </>
