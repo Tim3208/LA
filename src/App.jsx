@@ -6,10 +6,11 @@ import { LocationProvider } from "@/contexts/LocationContext";
 // 페이지 모음
 import MainPage from "./pages/MainPage";
 import AiPage from "./pages/AiPage";
+import BoardPage from "./pages/BoardPage";
+import CalendarPage from "./pages/CalendarPage";
+import FaqPage from "./pages/FaqPage";
 import ListPage from "./pages/ListPage";
 import MyPage from "./pages/MyPage";
-import FaqPage from "./pages/FaqPage";
-import BoardPage from "./pages/BoardPage";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         <Routes>
           {/* 메인 */}
           <Route path="/" element={<MainPage />} />
+
+          {/* 캘린더 페이지 */}
+          <Route path="/calendar" element={<CalendarPage />} />
 
           {/* 게시판 목록 페이지 */}
           <Route path="/list" element={<ListPage />} />
