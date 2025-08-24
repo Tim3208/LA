@@ -1,6 +1,11 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 /**
  * 임시 AI 추천 데이터
@@ -53,6 +58,30 @@ const aiRecommendations = [
 
 /** AI 맞춤 추천 탭 CP */
 const AiPageRecommendationCP = () => {
+  const [recmtList, setRecmtList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // 추천 게시물 조회 API 호출
+  useEffect(() => {
+    async function fetchRecommendations() {
+      setLoading(true);
+      setError(null);
+      try {
+        // FIXME: ai recommendation api url 연결
+        const res = await axios.get(`${BASE_URL}/ai`);
+        setRecmtList(res.data);
+      } catch (err) {
+        // FIXME: 현재 서버가 없어 에러가 나므로 강제로 aiRecommendations 불러와서 쓰는중.
+        // setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
+        setRecmtList(aiRecommendations);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRecommendations();
+  }, []);
+
   return (
     <>
       <div className="mb-6">
@@ -65,47 +94,53 @@ const AiPageRecommendationCP = () => {
       </div>
 
       <div className="grid gap-6">
-        {aiRecommendations.map((event) => (
-          <Card key={event.id} className="overflow-hidden">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge className="bg-blue-100">
-                      {event.confidence}% 매치
-                    </Badge>
-                    {event.tags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : error ? (
+          <p className="p-6 bg-white shadow-md rounded-lg">{error}</p>
+        ) : (
+          recmtList.map((event) => (
+            <Card key={event.id} className="overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge className="bg-blue-100">
+                        {event.confidence}% 매치
                       </Badge>
-                    ))}
-                  </div>
-                  <h3 className="text-xl font-semibold text-black mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-90 mb-3">{event.summary}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-90 mb-3">
-                    <span>📅 {event.date}</span>
-                    <span>📍 {event.location}</span>
-                  </div>
-                  <div className="bg-blue-50 p-3 rounded-lg">
-                    <p className="text-sm text-blue-110">
-                      <strong>추천 이유:</strong> {event.matchReason}
-                    </p>
+                      {event.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <h3 className="text-xl font-semibold text-black mb-2">
+                      {event.title}
+                    </h3>
+                    <p className="text-gray-90 mb-3">{event.summary}</p>
+                    <div className="flex items-center gap-4 text-sm text-gray-90 mb-3">
+                      <span>📅 {event.date}</span>
+                      <span>📍 {event.location}</span>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <p className="text-sm text-blue-110">
+                        <strong>추천 이유:</strong> {event.matchReason}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex gap-2">
-                <Button size="sm" className="bg-blue-100 hover:bg-blue-120">
-                  관심 등록
-                </Button>
-                <Button size="sm" variant="outline">
-                  자세히 보기
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                <div className="flex gap-2">
+                  <Button size="sm" className="bg-blue-100 hover:bg-blue-120">
+                    관심 등록
+                  </Button>
+                  <Button size="sm" variant="outline">
+                    자세히 보기
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
       </div>
     </>
   );

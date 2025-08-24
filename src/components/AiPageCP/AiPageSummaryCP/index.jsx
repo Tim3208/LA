@@ -1,9 +1,20 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 import { Bot } from "lucide-react";
 
-/** AI 행사 요약 탭 CP */
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+/**
+ * 임시 AI 요약 데이터
+ * @param {number} id
+ * @param {string} title 행사 이름
+ * @param {string} originalInfo 원본 정보
+ * @param {string} aiSummary AI 요약본
+ * @param {string[]} tags 태그(키워드) 배열
+ * @param {Object} sentiment 긍정(num)/부정(num)적 반응 비율
+ */
 const eventSummaries = [
   {
     id: 1,
@@ -26,7 +37,32 @@ const eventSummaries = [
   },
 ];
 
+/** AI 행사 요약 탭 CP */
 const AiPageSummaryCP = () => {
+  const [summaryList, setSummaryList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // 추천 게시물 조회 API 호출
+  useEffect(() => {
+    async function fetchSummaries() {
+      setLoading(true);
+      setError(null);
+      try {
+        // FIXME: ai summaries api url 연결
+        const res = await axios.get(`${BASE_URL}/ai`);
+        setSummaryList(res.data);
+      } catch (err) {
+        // FIXME: 현재 서버가 없어 에러가 나므로 강제로 eventSummaries 불러와서 쓰는중.
+        // setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
+        setSummaryList(eventSummaries);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSummaries();
+  }, []);
+
   return (
     <>
       <div className="mb-6">
@@ -37,42 +73,52 @@ const AiPageSummaryCP = () => {
       </div>
 
       <div className="grid gap-6">
-        {eventSummaries.map((event) => (
-          <Card key={event.id}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bot className="w-5 h-5 text-blue-100" />
-                {event.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h4 className="font-medium text-black mb-2">🤖 AI 요약</h4>
-                <div className="bg-blue-light2 p-4 rounded-lg">
-                  <p className="font-medium text-blue-100">{event.aiSummary}</p>
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : error ? (
+          <p className="p-6 bg-white shadow-md rounded-lg">{error}</p>
+        ) : (
+          summaryList.map((event) => (
+            <Card key={event.id}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-blue-100" />
+                  {event.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-black mb-2">🤖 AI 요약</h4>
+                  <div className="bg-blue-light2 p-4 rounded-lg">
+                    <p className="font-medium text-blue-100">
+                      {event.aiSummary}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <h4 className="font-medium text-black mb-2">🏷️ 분위기 태그</h4>
-                <div className="flex flex-wrap gap-2">
-                  {event.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
+                <div>
+                  <h4 className="font-medium text-black mb-2">
+                    🏷️ 분위기 태그
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {event.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <h4 className="font-medium text-black mb-2">📝 원본 정보</h4>
-                <p className="text-sm text-gray-90 bg-blue-light2 p-3 rounded-lg">
-                  {event.originalInfo}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                <div>
+                  <h4 className="font-medium text-black mb-2">📝 원본 정보</h4>
+                  <p className="text-sm text-gray-90 bg-blue-light2 p-3 rounded-lg">
+                    {event.originalInfo}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
       </div>
     </>
   );
