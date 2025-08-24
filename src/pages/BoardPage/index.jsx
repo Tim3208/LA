@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import MainLayOut from "../../layout/MainLayOut";
 import styled from "styled-components";
 import { boards } from "@/data/boards";
+import { useNavigate } from "react-router-dom";
 
 import {
   Container,
@@ -46,10 +47,13 @@ import {
 } from "lucide-react";
 
 const BoardPage = () => {
+   const navigate = useNavigate();
   const {boardId} = useParams();
   const currentBoard = boards.find(board => board.id === String(boardId)) || boards[0];
   const [activePage, setActivePage] = useState(1);
+  const [activeIcon, setActiveIcon] = useState("list");
   const [filter, setFilter] = useState("latest");
+  
 
   const recommendPosts = [
     {
@@ -119,6 +123,7 @@ const BoardPage = () => {
     },
   ];
 
+
   return (
     <MainLayOut>
       <Header>{currentBoard.title}</Header>
@@ -152,7 +157,10 @@ const BoardPage = () => {
         </RecommendSection>
 
         <Toolbar>
-          <SectionLeft >+ 글쓰기</SectionLeft>
+          <SectionLeft 
+          onClick={() => navigate("/create")} 
+          style={{ cursor: "pointer" }} 
+          >+ 글쓰기</SectionLeft>
           <Input placeholder="게시글 검색..." />
           <Filters>
               <FilterButton
@@ -175,21 +183,28 @@ const BoardPage = () => {
   </FilterButton>
           </Filters>
             <IconWrapper>
-            <Grid2X2Icon><Grid2X2 size={24} color="#bcc4d5" /></Grid2X2Icon>
-            <ListIcon><List size={24} color="#fff" /></ListIcon>
+            <Grid2X2Icon 
+              active={activeIcon === "grid"}
+              onClick={() => setActiveIcon("grid")}>
+              <Grid2X2 size={24}  />
+            </Grid2X2Icon>
+            <ListIcon
+              active={activeIcon === "list"}
+              onClick={() => setActiveIcon("list")}>
+              <List size={24}  /></ListIcon>
             </IconWrapper>     
         </Toolbar>
 
-        <BoardList>
+        <BoardList viewMode={activeIcon}>
           {posts.map((post) => (
-            <BoardItem key={post.id}>
+            <BoardItem key={post.id} viewMode={activeIcon}>
               <BoardHeader>
                 {post.hot && <Badge type="hot">HOT</Badge>}
                 {post.news && <Badge type="news">뉴스</Badge>}
                 {post.tags.map((tag) => (
                   <Badge type="tags" key={tag}>
                     {tag}
-                  </Badge>
+                    </Badge>
                 ))}
               </BoardHeader>
               <BoardTitle>{post.title}</BoardTitle>
@@ -198,6 +213,7 @@ const BoardPage = () => {
             </BoardItem>
           ))}
         </BoardList>
+
 
         <Pagination>
           <PageButton

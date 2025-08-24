@@ -9,6 +9,7 @@ import ListPage from "./pages/ListPage";
 import MyPage from "./pages/MyPage";
 import FaqPage from "./pages/FaqPage";
 import BoardPage from "./pages/BoardPage";
+import CreatePage from "./pages/CreatePage";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
 
           {/* 마이페이지 */}
           <Route path="/myPage" element={<MyPage />} />
+
+          {/* 게시물 작성 페이지 */}
+          <Route path="/create" element={<CreatePage />} />
 
           {/* FAQ 페이지 */}
           <Route path="/faq" element={<FaqPage />} />

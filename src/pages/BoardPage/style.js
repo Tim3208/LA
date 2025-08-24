@@ -108,7 +108,13 @@ export const ButtonSmall = styled.span`
   border-radius: 8px;
   cursor: pointer;
   margin-right: 16px;
+
+  &:hover {
+    background-color:  RGB(188, 196, 213,90);
+  }
 `;
+
+
 
 /* ========== RecommendList ========== */
 export const RecommendList = styled.section`
@@ -219,6 +225,10 @@ export const SectionLeft = styled.div`
   width: 100px;
   align-items: center;
   justify-content: center;
+
+  &:hover{
+    background-color:#2563eb;
+  }
 `;
 
 export const Input = styled.input`
@@ -253,7 +263,6 @@ export const FilterButton = styled.button`
   gap: 8px;
   background: ${(props) => (props.active ? "#000" : "#fff")};
   color: ${(props) => (props.active ? "#fff" : "#000")}; 
-  
 
 `;
 
@@ -268,48 +277,58 @@ export const ListIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #51a2ff;
-  border: 1px solid #bcc4d5;
+  border: 1px solid;
   border-radius: 8px;
   padding: 8px; 
   cursor: pointer;
+  background: ${(props) => (props.active ? "#51a2ff" : "#fff")};
+  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")}; 
 `;
 
 export const Grid2X2Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border: 1px solid #bcc4d5;
+
+  border: 1px solid ;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
+  background: ${(props) => (props.active ? "#51a2ff" : "#fff")};
+  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")}; 
+
 `;
 
 
 export const BoardList = styled.section`
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; 
+  display: grid;
+  gap: 16px;
+  grid-template-columns: ${(props) =>
+    props.viewMode === "grid" ? "repeat(2, 1fr)" : "repeat(1, 1fr)"};
 `;
-export const BoardItem = styled.article`
-  width: 1440px;
-  height: 137px;
+
+export const BoardItem = styled.article.withConfig({
+  shouldForwardProp: (prop) => prop !== "viewMode"
+})`
+  height: 146px;   
+  width: ${(props) => (props.viewMode === "grid" ? "712px" : "1440px")};
   background: #fff;
   border: 1px solid #dceaff;
   border-radius: 8px;
   box-shadow: 0px 0px 3px 0px #00000040;
 
-  display: flex;            
-  flex-direction: column;  
-  justify-content: center;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  padding: 0 32px;
+  padding: 24px 32px 0 32px;
   box-sizing: border-box;
-  padding-top: 24px;
   margin-top: 16px;
 `;
+
 /* ========== Pagination ========== */
 export const Pagination = styled.div`
   display: flex;
