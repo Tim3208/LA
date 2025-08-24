@@ -1,20 +1,8 @@
-import {
-  Calendar,
-  MessageSquare,
-  MapPin,
-  Users,
-  Sparkles,
-  ChevronRight,
-  Bell,
-  Heart,
-  Bot,
-  TrendingUp,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { LocationSelector } from "@/components/ui/locationSelector";
-import { useState } from "react";
 import { useLocationContext } from "@/contexts/LocationContext";
 
 const MainLayOutHeader = () => {
@@ -36,11 +24,10 @@ const MainLayOutHeader = () => {
               />
             </div>
             <nav className="hidden md:flex space-x-8">
-              {/* FIXME: /calendar로 링크 수정 */}
               <Link
-                to="/"
+                to="/calendar"
                 className={`font-medium ${
-                  isActive("/calendar") ? "text-blue-100" : "!text-gray-90"
+                  isActive("/calendar") ? "!text-blue-100" : "!text-gray-90"
                 }`}
               >
                 캘린더
