@@ -11,6 +11,8 @@ import CalendarPage from "./pages/CalendarPage";
 import FaqPage from "./pages/FaqPage";
 import ListPage from "./pages/ListPage";
 import MyPage from "./pages/MyPage";
+import BoardPage from "./pages/BoardPage";
+import CreatePage from "./pages/CreatePage";
 
 function App() {
   return (
@@ -28,13 +30,16 @@ function App() {
           {/* 게시판 목록 페이지 */}
           <Route path="/list" element={<ListPage />} />
 
-          <Route path="/board" element={<BoardPage />} />
+          <Route path="/board/:boardId" element={<BoardPage />} />
 
           {/* Ai 페이지 */}
           <Route path="/ai" element={<AiPage />} />
 
           {/* 마이페이지 */}
           <Route path="/myPage" element={<MyPage />} />
+
+          {/* 게시물 작성 페이지 */}
+          <Route path="/create" element={<CreatePage />} />
 
           {/* FAQ 페이지 */}
           <Route path="/faq" element={<FaqPage />} />

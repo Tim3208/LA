@@ -93,7 +93,7 @@ const boards = [
   },
 ];
 
-const BoardListPage = () => {
+const ListPage = () => {
   const navigate = useNavigate();
 
   /* ✅ recentPosts는 변동 가능 (state 관리) */
@@ -137,7 +137,7 @@ const BoardListPage = () => {
             return (
               <BoardCard
                 key={board.id}
-                onClick={() => navigate(`/boards/${board.id}`)}
+                onClick={() => navigate(`/board/${board.id}`)}
               >
                 <InfoWrapper>
                   <IconWrapper>
@@ -194,4 +194,4 @@ const BoardListPage = () => {
   );
 };
 
-export default BoardListPage;
+export default ListPage;
