@@ -53,6 +53,10 @@ const BoardPage = () => {
   const [activePage, setActivePage] = useState(1);
   const [activeIcon, setActiveIcon] = useState("list");
   const [filter, setFilter] = useState("latest");
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   
 
   const recommendPosts = [
@@ -75,7 +79,7 @@ const BoardPage = () => {
     },
   ];
 
-  const posts = [
+  const dummyposts = [
     {
       id: 1,
       hot: true,
@@ -84,43 +88,7 @@ const BoardPage = () => {
       title: "강남구 교통 개선 관련 최신 소식",
       desc: "강남대로 일대 교통 체계 개선 공사가 다음 달부터 시작됩니다. 우회 경로를 미리 확인해주세요.",
       meta: "뉴스봇 · 8시간 전",
-    },
-    {
-      id: 2,
-      hot: true,
-      news: false,
-      tags: ["#공지", "#공식", "#지원"],
-      title: "[홍보] 지역 소상공인 지원 프로그램 안내드립니다.",
-      desc: "강남구에서 소상공인을 위한 다양한 지원 프로그램을 운영하고 있습니다. 자세한 내용은 구청 홈페이지를 확인해주세요.",
-      meta: "강남구청 · 9시간 전",
-    },
-    {
-      id: 3,
-      hot: false,
-      news: false,
-      tags: ["#교통", "#맛집", "#활동"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물에 대한 내용을 요약해서 적는 란입니다.",
-      meta: "이용자 · 10시간 전",
-    },
-    {
-      id: 4,
-      hot: false,
-      news: false,
-      tags: ["#공지", "#행사"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물의 내용이 들어가는 공간입니다.",
-      meta: "뉴스봇 · 1일 전",
-    },
-    {
-      id: 5,
-      hot: false,
-      news: false,
-      tags: ["#소통", "#잡담"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물의 내용이 들어가는 공간입니다.",
-      meta: "이용자 · 2일 전",
-    },
+    }
   ];
 
 

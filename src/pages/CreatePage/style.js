@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const FirstCard = styled.div`
-  height: 424px;
+  height: 510px;
   border: 0.75px solid #98a1b4;
   border-radius: 10px;
   padding: 22px;
@@ -19,7 +19,7 @@ export const FirstCard = styled.div`
 `;
 
 export const SecondCard = styled.div`
-  height: 265px;
+  height: 240px;
   border: 0.75px solid #98a1b4;
   border-radius: 10px;
   padding: 22px;
@@ -70,9 +70,10 @@ export const SubTitle = styled.h1`
 `;
 export const InputWrapper=styled.div`
   display: flex;
-  flex-direction: column; 
   gap: 3px; 
   margin-right: 22px;
+  flex-direction: column;
+
 `;
 
 export const InputTitle= styled.h1`
@@ -81,7 +82,7 @@ export const InputTitle= styled.h1`
 `;
 
 export const StyledInput = styled.input`
-  width:302px;
+  width:626px;
   height:40px;
   border-radius:5px;
   border: 0.75px solid #98A1B4;
@@ -98,7 +99,26 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 16px;
 `;
+export const Region = styled.h1`
+font-size:14px;
+  font-weight:400;
+`;
 
+export const RegionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+`;  
+export const Styled =styled.select`
+  width:302px;
+  height:40px;
+  border-radius:5px;
+  border: 0.75px solid #98A1B4;
+  color: #000;
+  &::placeholder {
+    color: #98a1b4;
+  }
+`;
 export const SelectWrapper=styled.div`
   display: flex;
   flex-direction: column; 
@@ -121,18 +141,26 @@ export const StyledSelect = styled.select`
   }
 
 `;
-
 export const Row = styled.div`
-  width:626px;
-  height: 60px;
   display: flex;
-
+  gap: 20px; /* 요소 간 간격 */
+  flex-wrap: wrap;
 `;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  margin-top: 16px;
+`;
+
+
 export const TextWrapper=styled.div`
 `;
 
 export const TextTitle=styled.h2`
-  margin-top:21px;
+  margin-top:17px;
   margin-bottom:3px;
   font-size:14px;
 `;
