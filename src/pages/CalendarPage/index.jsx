@@ -146,7 +146,7 @@ const CalendarGrid = ({ currentDate, events }) => {
   };
 
   /** 오늘이 맞는지 체크하고 맞으면 true 뱉음 */
-  const isToday = () => {
+  const isToday = (day) => {
     const today = new Date();
     return (
       today.getFullYear() === year &&
@@ -222,7 +222,7 @@ const CalendarGrid = ({ currentDate, events }) => {
   );
 };
 
-/** 달력에 일정 띄울 때 디테일 결정하는 함수 */
+/** 일정 상세 정보 모달로 띄워주는 함수 */
 function EventDetails({ event }) {
   const getCategoryColor = (category) => {
     switch (category) {

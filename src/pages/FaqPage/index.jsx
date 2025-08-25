@@ -1,25 +1,14 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayOut from "@/layout/MainLayOut";
 import { FaqPageMainStyle } from "./style";
 
-import SimpleAccordionCP from "@/components/FaqPageCP/FaqPageAccordionCP";
 import FaqListCP from "@/components/FaqPageCP/FaqListCP";
 import QnaSectionCP from "@/components/FaqPageCP/QnaSectionCP";
 
 import { HelpCircle, MessageCircle } from "lucide-react";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const FaqPage = () => {
   // FAQ 추가용 상태 (관리자용)
