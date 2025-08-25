@@ -39,9 +39,11 @@ const eventSummaries = [
 
 /** AI 행사 요약 탭 CP */
 const AiPageSummaryCP = () => {
-  const [summaryList, setSummaryList] = useState([]);
+  const [summaryList, setSummaryList] = useState({ results: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
 
   // 추천 게시물 조회 API 호출
   useEffect(() => {
@@ -49,19 +51,23 @@ const AiPageSummaryCP = () => {
       setLoading(true);
       setError(null);
       try {
-        // FIXME: ai summaries api url 연결
-        const res = await axios.get(`${BASE_URL}/ai`);
+        const res = await axios.get(`${BASE_URL}:8081/api/analysis/results`);
         setSummaryList(res.data);
       } catch (err) {
-        // FIXME: 현재 서버가 없어 에러가 나므로 강제로 eventSummaries 불러와서 쓰는중.
-        // setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
-        setSummaryList(eventSummaries);
+        setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
       } finally {
         setLoading(false);
       }
     }
     fetchSummaries();
   }, []);
+
+  // 페이지네이션 : 한 페이지당 2개(itemsPerPage)씩 보이도록
+  const pagedData = summaryList.results.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  const totalPages = Math.ceil(summaryList.results.length / itemsPerPage);
 
   return (
     <>
@@ -78,15 +84,15 @@ const AiPageSummaryCP = () => {
         ) : error ? (
           <p className="p-6 bg-white shadow-md rounded-lg">{error}</p>
         ) : (
-          summaryList.map((event) => (
+          pagedData.map((event) => (
             <Card key={event.id}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Bot className="w-5 h-5 text-blue-100" />
-                  {event.title}
+                  {event.review.festivalName}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 max-w-1440">
                 <div>
                   <h4 className="font-medium text-black mb-2">🤖 AI 요약</h4>
                   <div className="bg-blue-light2 p-4 rounded-lg">
@@ -101,7 +107,7 @@ const AiPageSummaryCP = () => {
                     🏷️ 분위기 태그
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {event.tags.map((tag) => (
+                    {JSON.parse(event.positiveKeywords).map((tag) => (
                       <Badge key={tag} variant="secondary">
                         {tag}
                       </Badge>
@@ -111,14 +117,37 @@ const AiPageSummaryCP = () => {
 
                 <div>
                   <h4 className="font-medium text-black mb-2">📝 원본 정보</h4>
-                  <p className="text-sm text-gray-90 bg-blue-light2 p-3 rounded-lg">
-                    {event.originalInfo}
+                  <p className="text-sm text-gray-90 bg-blue-light2 p-3 rounded-lg truncate">
+                    {event.review.content}
                   </p>
                 </div>
               </CardContent>
             </Card>
           ))
         )}
+      </div>
+
+      {/* 페이지네이션 */}
+      <div className="flex justify-center gap-4 mt-6">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          이전
+        </button>
+        <span className="flex items-center">
+          {currentPage} / {totalPages}
+        </span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() =>
+            setCurrentPage((page) => Math.min(page + 1, totalPages))
+          }
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          다음
+        </button>
       </div>
     </>
   );

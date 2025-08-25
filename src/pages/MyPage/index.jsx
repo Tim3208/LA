@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,9 +26,165 @@ import {
 import { Link } from "react-router-dom";
 import { useLocationContext } from "@/contexts/LocationContext";
 import { ProfileEditModal } from "@/components/MyPageCP/profileEditModal";
+import { set } from "zod";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+dayjs.extend(relativeTime);
 
 export default function MyPage() {
   const { selectedLocation, setSelectedLocation } = useLocationContext();
+  const [userData, setUserData] = useState({
+    profile: {
+      id: 0,
+      nickname: "",
+      bio: "",
+      avatar: "",
+      avatar_url: "",
+      name: "",
+      email: "",
+      location: "",
+      joinDate: "",
+      birth: "",
+      gender: "",
+      phone: "",
+    },
+    posts: [
+      {
+        id: 0,
+        title: "",
+        content: "",
+        created_at: "",
+        category: "",
+        comments: 0,
+        likes: 0,
+      },
+    ],
+    comments: [
+      {
+        id: 0,
+        post_id: 0,
+        content: "",
+        created_at: "",
+      },
+    ],
+    likedPosts: [
+      {
+        id: 0,
+        title: "",
+        category: "",
+        author: "",
+        created_at: "",
+      },
+    ],
+    interested_events: [
+      {
+        id: 0,
+        event_name: "",
+        event_date: "",
+        location: "",
+      },
+    ],
+    statistics: {
+      posts: 0,
+      comments: 0,
+      likesRecived: 0,
+      interests: 0,
+    },
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log(`${BASE_URL}/mypage`);
+    async function fetchUserDatas() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get(`${BASE_URL}/mypage`);
+        setUserData(res.data);
+      } catch (err) {
+        // FIXME: 현재 서버가 없어 에러가 나므로 강제로 UserDataData 불러와서 쓰는중.
+        // setError("서버에서 유저 데이터를 불러오는 중 오류가 발생했습니다.");
+        setUserData(dummyData);
+        console.log(userData);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUserDatas();
+  }, []);
+
+  const dummyData = {
+    profile: {
+      id: 1,
+      nickname: "사용자",
+      bio: "설명",
+      avatar: "/placeholder.svg?height=80&width=80",
+      avatar_url: "사용자 프로필 사진 URL",
+      name: "오금서",
+      email: "example@gmail.com",
+      location: "강남구",
+      joinDate: "2025-08-11T11:00:00.000Z",
+      birth: "2003-09-27T11:00:00.000Z",
+      gender: "femaile",
+      phone: "010-1234-5678",
+    },
+    posts: [
+      {
+        id: 1,
+        title: "첫 글",
+        content: "테스트용 첫 글입니다",
+        created_at: "2025-08-23T11:00:00.000Z",
+        category: "자유게시판",
+        comments: 12,
+        likes: 34,
+      },
+    ],
+    comments: [
+      {
+        id: 1,
+        post_id: 1,
+        content: "첫 댓글",
+        created_at: "2025-08-23T11:10:00.000Z",
+      },
+      {
+        id: 2,
+        post_id: 2,
+        content: "두 번째 댓글",
+        created_at: "2025-08-23T12:10:00.000Z",
+      },
+    ],
+    likedPosts: [
+      {
+        id: 1,
+        title: "멋쟁이 사자처럼 13기 해커톤",
+        category: "자유게시판",
+        author: "멋쟁이 사자처럼",
+        created_at: "2025-08-11T11:00:00.000Z",
+      },
+    ],
+    interested_events: [
+      {
+        id: 1,
+        event_name: "축제 A",
+        event_date: "2025-08-25",
+        location: "양재 aT센터",
+      },
+    ],
+    statistics: {
+      likes_received: 56,
+    },
+  };
+
+  dummyData.statistics = {
+    posts: dummyData.posts.length,
+    comments: dummyData.comments.length,
+    interested_events: dummyData.interested_events.length,
+  };
 
   const handleLocationChange = (newLocation) => {
     setSelectedLocation(newLocation);
@@ -45,7 +202,7 @@ export default function MyPage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // FIXME: 데이터 모두 백엔드와 연결
-  const [user, setUser] = useState({
+  /* const [user, setUser] = useState({
     name: "오금서",
     nickname: "금이 다섯개",
     email: "user@example.com",
@@ -77,7 +234,7 @@ export default function MyPage() {
     },
   ];
 
-  const myStatistics = {
+  const userData.statistics = {
     posts: myPosts.length,
     comments: 123,
     likesRecived: 45,
@@ -114,7 +271,7 @@ export default function MyPage() {
       date: "2024.12.22",
       location: "강남구청",
     },
-  ];
+  ]; */
 
   const handleProfileSave = (updatedProfile) => {
     setUser((prev) => ({ ...prev, ...updatedProfile }));
@@ -140,7 +297,6 @@ export default function MyPage() {
           </div>
         </div>
       </header>
-
       <main className="max-w-1440 mx-auto px-4 lg:px-0 py-16">
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Left Sidebar - Profile */}
@@ -149,37 +305,39 @@ export default function MyPage() {
               <CardContent className="p-6 text-center">
                 <Avatar className="w-20 h-20 mx-auto mb-4">
                   <AvatarImage
-                    src={user.avatar || "/placeholder.svg"}
-                    alt={user.name}
+                    src={userData.profile.avatar || "/placeholder.svg"}
+                    alt={userData.profile.name}
                   />
                   <AvatarFallback>
                     <User className="w-8 h-8" />
                   </AvatarFallback>
                 </Avatar>
                 <h2 className="text-xl font-semibold text-black mb-2">
-                  {user.name}
+                  {userData.profile.name}
                 </h2>
                 <p className="text-blue-100 text-base font-medium mb-2">
-                  @{user.nickname}
+                  @{userData.profile.nickname}
                 </p>
-                <p className="text-gray-100 text-sm mb-4">{user.email}</p>
+                <p className="text-gray-100 text-sm mb-4">
+                  {userData.profile.email}
+                </p>
 
                 {/* 자기소개 */}
-                {user.bio && (
+                {userData.profile.bio && (
                   <div className="bg-gray-30 p-2 rounded-lg mb-4">
                     <p className="text-sm text-black leading-relaxed">
-                      {user.bio}
+                      {userData.profile.bio}
                     </p>
                   </div>
                 )}
                 <div className="space-y-2 text-sm text-gray-100">
                   <div className="flex items-center justify-center gap-2">
                     <MapPin className="w-4 h-4" />
-                    <span>{user.location}</span>
+                    <span>{userData.profile.location}</span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <Clock className="w-4 h-4" />
-                    <span>가입일: {user.joinDate}</span>
+                    <span>가입일: {userData.profile.joinDate}</span>
                   </div>
                 </div>
                 <Button
@@ -201,25 +359,25 @@ export default function MyPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-base text-gray-100">작성한 글</span>
                   <span className="font-semibold text-blue-100">
-                    {myStatistics.posts}개
+                    {userData.statistics.posts}개
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-base text-gray-100">작성한 댓글</span>
                   <span className="font-semibold text-blue-100">
-                    {myStatistics.comments}개
+                    {userData.statistics.comments}개
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-base text-gray-100">받은 좋아요</span>
                   <span className="font-semibold text-blue-100">
-                    {myStatistics.likesRecived}개
+                    {userData.statistics.likesRecived}개
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-base text-gray-100">관심 이벤트</span>
                   <span className="font-semibold text-blue-100">
-                    {myStatistics.interests}개
+                    {userData.statistics.interests}개
                   </span>
                 </div>
               </CardContent>
@@ -258,11 +416,11 @@ export default function MyPage() {
                   <CardHeader>
                     <CardTitle>내가 작성한 게시글</CardTitle>
                     <CardDescription>
-                      총 {myPosts.length}개의 게시글을 작성했습니다
+                      총 {userData.posts.length}개의 게시글을 작성했습니다
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {myPosts.map((post) => (
+                    {userData.posts.map((post) => (
                       <div
                         key={post.id}
                         className="p-4 bg-gray-30 rounded-lg hover:bg-gray-40 transition-colors cursor-pointer"
@@ -270,7 +428,7 @@ export default function MyPage() {
                         <div className="flex items-center gap-2 mb-2">
                           <Badge variant="outline">{post.category}</Badge>
                           <span className="text-sm text-gray-90">
-                            {post.time}
+                            {dayjs(post.created_at).locale("ko").fromNow()}
                           </span>
                         </div>
                         <h3 className="font-semibold text-black mb-2">

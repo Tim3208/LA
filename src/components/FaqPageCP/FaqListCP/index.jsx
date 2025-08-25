@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import SimpleAccordionCP from "../FaqPageAccordionCP";
 import { FaqsList, CategoryButton } from "./style";
 import { Search } from "lucide-react";
@@ -72,6 +73,7 @@ const FaqListCP = () => {
 
   // 전체 FAQ 조회 API 호출
   useEffect(() => {
+    console.log(`${BASE_URL}/faq`);
     async function fetchFaqs() {
       setLoading(true);
       setError(null);
@@ -80,8 +82,9 @@ const FaqListCP = () => {
         setFaqList(res.data);
       } catch (err) {
         // FIXME: 현재 서버가 없어 에러가 나므로 강제로 faqData 불러와서 쓰는중.
-        // setError("서버에서 FAQ를 불러오는 중 오류가 발생했습니다.");
-        setFaqList(faqData);
+        setError("서버에서 FAQ를 불러오는 중 오류가 발생했습니다.");
+        console.log(err);
+        // setFaqList(faqData);
       } finally {
         setLoading(false);
       }
@@ -117,7 +120,7 @@ const FaqListCP = () => {
     }
 
     try {
-      const res = await axios.post(`${BASE_URL}/faq`, {
+      const res = await axios.post(`${BASE_URL}:3001/faq`, {
         question: newQuestion,
         answer: newAnswer,
       });

@@ -11,7 +11,6 @@ import CalendarPage from "./pages/CalendarPage";
 import FaqPage from "./pages/FaqPage";
 import ListPage from "./pages/ListPage";
 import MyPage from "./pages/MyPage";
-import BoardPage from "./pages/BoardPage";
 import CreatePage from "./pages/CreatePage";
 
 function App() {
