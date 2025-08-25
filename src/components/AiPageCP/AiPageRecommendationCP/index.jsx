@@ -73,8 +73,8 @@ const AiPageRecommendationCP = () => {
         setRecmtList(res.data);
       } catch (err) {
         // FIXME: 현재 서버가 없어 에러가 나므로 강제로 aiRecommendations 불러와서 쓰는중.
-        // setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
-        setRecmtList(aiRecommendations);
+        setError("서버에서 게시물을 불러오는 중 오류가 발생했습니다.");
+        // setRecmtList(aiRecommendations);
       } finally {
         setLoading(false);
       }

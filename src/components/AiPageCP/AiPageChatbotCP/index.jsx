@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 
 import { Bot, Loader2, Send } from "lucide-react";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 /** AI 챗봇 탭 CP */
 const AiPageChatbotCP = () => {
   const [chatMessage, setChatMessage] = useState("");
@@ -33,20 +35,28 @@ const AiPageChatbotCP = () => {
     ]);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const chatbotResponse = await fetch(`${BASE_URL}:8081/api/chatbot/ask`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: userMessage,
+        }),
+      });
 
-      let aiResponse = "";
-      if (userMessage.includes("데이트") || userMessage.includes("연인")) {
-        aiResponse = "데이트하는건 꼴받아서 안알려드리겠습니다 XP";
-      } else if (userMessage.includes("가족") || userMessage.includes("아이")) {
-        aiResponse =
-          "가족과 함께 즐길 수 있는 행사를 추천드려요! 👨‍👩‍👧‍👦\n\n가족 친화 겨울축제가 12월 22일에 강남역 광장에서 열려요.\n아이들이 좋아할 체험 부스도 많고, 안전하게 즐길 수 있는 공간이에요.\n\n특히 페이스페인팅이나 만들기 체험이 인기가 많더라고요!";
-      } else if (userMessage.includes("음식") || userMessage.includes("맛집")) {
-        aiResponse =
-          "맛있는 음식을 즐길 수 있는 행사를 찾아드릴게요! 🍽️\n\n겨울 야시장이 강남역에서 열려요. \n따뜻한 길거리 음식부터 이색 요리까지 다양하게 맛볼 수 있어요.\n\n특히 호떡, 붕어빵 같은 겨울 간식이 정말 맛있다고 후기가 좋더라고요!";
-      } else {
-        aiResponse =
-          "안녕하세요! LA AI 큐레이터예요. ✨\n\n어떤 종류의 행사를 찾고 계신가요? 예를 들어:\n\n• '가족들과 가기 좋은 축제'\n\n이런 식으로 말씀해주시면 딱 맞는 행사를 추천해드릴게요!\n\n\n\nDEVKEY: 데이트, 연인, 가족, 아이, 음식, 맛집";
+      if (!chatbotResponse.ok) {
+        alert("문의 제출 중 오류가 발생했습니다.");
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await chatbotResponse.json();
+      let aiResponse = result.answer;
+      if (result.relatedEvents && result.relatedEvents.length > 0) {
+        const eventsSummary = result.relatedEvents
+          .map((event) => `- ${event.name} (${event.district}, ${event.date})`)
+          .join("\n");
+        aiResponse += `\n\n관련 행사 정보:\n${eventsSummary}`;
       }
 
       setChatHistory((prev) => [
@@ -54,6 +64,8 @@ const AiPageChatbotCP = () => {
         { type: "ai", message: aiResponse, timestamp: new Date() },
       ]);
     } catch (error) {
+      console.error("챗봇 호출 중 에러:", error);
+      alert("챗봇 호출 중 오류가 발생했습니다. 콘솔을 확인해주세요.");
       setChatHistory((prev) => [
         ...prev,
         {

@@ -39,7 +39,7 @@ export function QnaSectionCP() {
 
   async function onSubmit(data) {
     try {
-      const response = await fetch(`${BASE_URL}/inquiries`, {
+      const response = await fetch(`${BASE_URL}:3031/inquiries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
