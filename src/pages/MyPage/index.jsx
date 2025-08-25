@@ -272,6 +272,13 @@ export default function MyPage() {
       location: "강남구청",
     },
   ]; */
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}.${month}.${day}`;
+  }
 
   const handleProfileSave = (updatedProfile) => {
     setUser((prev) => ({ ...prev, ...updatedProfile }));
@@ -337,7 +344,7 @@ export default function MyPage() {
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <Clock className="w-4 h-4" />
-                    <span>가입일: {userData.profile.joinDate}</span>
+                    <span>가입일: {formatDate(userData.profile.joinDate)}</span>
                   </div>
                 </div>
                 <Button
@@ -459,7 +466,7 @@ export default function MyPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {likedPosts.map((post) => (
+                    {userData.likedPosts.map((post) => (
                       <div
                         key={post.id}
                         className="p-4 bg-gray-30 rounded-lg hover:bg-gray-40 transition-colors cursor-pointer"
@@ -491,18 +498,18 @@ export default function MyPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {likedEvents.map((event) => (
+                    {userData.interested_events.map((event) => (
                       <div
                         key={event.id}
                         className="p-4 bg-gray-30 rounded-lg hover:bg-gray-40 transition-colors cursor-pointer"
                       >
                         <h3 className="font-semibold text-black mb-2">
-                          {event.title}
+                          {event.event_name}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-gray-80">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
-                            {event.date}
+                            {event.event_date}
                           </span>
                           <span className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
@@ -582,7 +589,7 @@ export default function MyPage() {
       <ProfileEditModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        currentProfile={user}
+        currentProfile={userData}
         onSave={handleProfileSave}
       />
     </div>
