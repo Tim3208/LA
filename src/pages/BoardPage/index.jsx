@@ -32,7 +32,14 @@ import {
   PageButton,
 } from "./style";
 
-import { Sparkles, Clock, Heart, MessageSquare, Grid2X2, List } from "lucide-react";
+import {
+  Sparkles,
+  Clock,
+  Heart,
+  MessageSquare,
+  Grid2X2,
+  List,
+} from "lucide-react";
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -44,6 +51,16 @@ const BoardPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const boardNames = {
+    free: "자유게시판",
+    promo: "홍보게시판",
+    local: "지역홍보게시판",
+    news: "뉴스게시판",
+    hot: "핫게시판",
+  };
+
+  const boardTitle = boardNames[boardId] || boardId || "게시판";
+
   const currentBoard = { title: boardId || "게시판" };
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -52,7 +69,9 @@ const BoardPage = () => {
     try {
       const sortParam = filter === "latest" ? "asc" : "desc";
       const response = await fetch(
-        `${BASE_URL}/posts?category=${boardId || "free"}&page=${activePage}&limit=10&search=${search}&sort=${sortParam}`
+        `${BASE_URL}:3001/posts?category=${
+          boardId || "free"
+        }&page=${activePage}&limit=10&search=${search}&sort=${sortParam}`
       );
 
       if (!response.ok) throw new Error("게시글 불러오기 실패");
@@ -74,7 +93,7 @@ const BoardPage = () => {
 
   return (
     <MainLayOut>
-      <Header>{currentBoard.title}</Header>
+      <Header>{boardTitle}</Header>
       <Container>
         <RecommendSection>
           <SectionTitle>
@@ -92,7 +111,10 @@ const BoardPage = () => {
         <Toolbar>
           <SectionLeft
             onClick={() => !isHotBoard && navigate("/create")}
-            style={{ cursor: isHotBoard ? "not-allowed" : "pointer", opacity: isHotBoard ? 0.5 : 1 }}
+            style={{
+              cursor: isHotBoard ? "not-allowed" : "pointer",
+              opacity: isHotBoard ? 0.5 : 1,
+            }}
           >
             + 글쓰기
           </SectionLeft>
@@ -103,21 +125,36 @@ const BoardPage = () => {
             onKeyDown={(e) => e.key === "Enter" && setActivePage(1)}
           />
           <Filters>
-            <FilterButton active={filter === "latest"} onClick={() => setFilter("latest")}>
+            <FilterButton
+              active={filter === "latest"}
+              onClick={() => setFilter("latest")}
+            >
               <Clock size={24} /> 최신순
             </FilterButton>
-            <FilterButton active={filter === "popular"} onClick={() => setFilter("popular")}>
+            <FilterButton
+              active={filter === "popular"}
+              onClick={() => setFilter("popular")}
+            >
               <Heart size={24} /> 인기순
             </FilterButton>
-            <FilterButton active={filter === "comment"} onClick={() => setFilter("comment")}>
+            <FilterButton
+              active={filter === "comment"}
+              onClick={() => setFilter("comment")}
+            >
               <MessageSquare size={24} /> 댓글순
             </FilterButton>
           </Filters>
           <IconWrapper>
-            <Grid2X2Icon active={activeIcon === "grid"} onClick={() => setActiveIcon("grid")}>
+            <Grid2X2Icon
+              active={activeIcon === "grid"}
+              onClick={() => setActiveIcon("grid")}
+            >
               <Grid2X2 size={24} />
             </Grid2X2Icon>
-            <ListIcon active={activeIcon === "list"} onClick={() => setActiveIcon("list")}>
+            <ListIcon
+              active={activeIcon === "list"}
+              onClick={() => setActiveIcon("list")}
+            >
               <List size={24} />
             </ListIcon>
           </IconWrapper>
@@ -130,7 +167,9 @@ const BoardPage = () => {
             {posts.map((post) => (
               <BoardItem key={post.id} viewMode={activeIcon}>
                 <BoardHeader>
-                  {post.category && <CategoryBadge>{post.category}</CategoryBadge>}
+                  {post.category && (
+                    <CategoryBadge>{boardNames[post.category]}</CategoryBadge>
+                  )}
                   {post.tags?.map((tag) => (
                     <TagBadge key={tag}>{tag}</TagBadge>
                   ))}
@@ -139,7 +178,8 @@ const BoardPage = () => {
                 <BoardTitle>{post.title}</BoardTitle>
                 <BoardDesc>{post.content}</BoardDesc>
                 <BoardReason>
-                  {post.author_name} · {new Date(post.created_at).toLocaleString()}
+                  {post.author_name} ·{" "}
+                  {new Date(post.created_at).toLocaleString()}
                 </BoardReason>
               </BoardItem>
             ))}
@@ -147,7 +187,9 @@ const BoardPage = () => {
         )}
 
         <Pagination>
-          <PageButton onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}>
+          <PageButton
+            onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
+          >
             &lt; 이전
           </PageButton>
           {[...Array(3)].map((_, i) => (
@@ -159,11 +201,13 @@ const BoardPage = () => {
               {i + 1}
             </PageButton>
           ))}
-          <PageButton onClick={() => setActivePage((prev) => prev + 1)}>다음 &gt;</PageButton>
+          <PageButton onClick={() => setActivePage((prev) => prev + 1)}>
+            다음 &gt;
+          </PageButton>
         </Pagination>
       </Container>
     </MainLayOut>
   );
 };
 
-export default BoardPage; 
+export default BoardPage;

@@ -1,15 +1,14 @@
-import styled,{css} from "styled-components";
+import styled, { css } from "styled-components";
 import { Grid2X2, List } from "lucide-react";
 
 export const Header = styled.header`
   font-size: 36px;
-  font-weight:800;
+  font-weight: 800;
   display: flex;
-  color:#2563eb;
-  margin-top:40px;
-  margin-left:120px;
-  margin-bottom:10px;
-  
+  color: #2563eb;
+  margin-top: 40px;
+  margin-left: 120px;
+  margin-bottom: 10px;
 `;
 /* ========== Container ========== */
 export const Container = styled.main`
@@ -34,7 +33,7 @@ export const RecommendSection = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   width: 1440px;
-  height:423px;
+  height: 423px;
   margin: 0 auto 40px auto;
   box-shadow: 0px 0px 4px 0px #0000004d;
   box-sizing: border-box;
@@ -58,21 +57,18 @@ export const RecommendLeft = styled.div`
   justify-content: center;
 `;
 
-
 export const Badge = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  weight:35px;
-  height:27px;
   font-weight: 400;
   font-size: 16px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 8px;
   background: #2563eb;
   color: #fff;
 
-    ${(props) =>
+  ${(props) =>
     props.type === "hot" &&
     css`
       background-color: #ef4444;
@@ -100,8 +96,8 @@ export const RecommendRight = styled.div`
 `;
 
 export const ButtonSmall = styled.span`
-  width:45px;
-  height:19px;
+  width: 45px;
+  height: 19px;
   font-size: 16px;
   padding: 8px 12px;
   border: 1px solid #bcc4d5;
@@ -110,34 +106,30 @@ export const ButtonSmall = styled.span`
   margin-right: 16px;
 
   &:hover {
-    background-color:  RGB(188, 196, 213,90);
+    background-color: RGB(188, 196, 213, 90);
   }
 `;
-
-
 
 /* ========== RecommendList ========== */
 export const RecommendList = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center; 
-  margin-top:-16px;
-
+  align-items: center;
+  margin-top: -16px;
 `;
 
 export const RecommendItem = styled.article`
-
   width: 1376px;
-  height:146px;
+  height: 146px;
   background: #fff;
   border: 1px solid #dceaff;
   border-radius: 8px;
   box-shadow: 0px 0px 3px 0px #00000040;
 
-  display: flex;            
-  flex-direction: column;  
-  justify-content: center;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   padding: 0 32px;
   box-sizing: border-box;
@@ -147,16 +139,14 @@ export const RecommendItem = styled.article`
 
 export const BoardHeader = styled.div`
   display: flex;
-  gap: 9px;       
-  align-items: center; 
+  gap: 9px;
+  align-items: center;
 `;
 
 export const CategoryBadge = styled.span`
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 6px;
   border: 0.75px solid #bcc4d5;
-  width:73px;
-  height:22px;
   font-size: 12px;
 `;
 
@@ -166,19 +156,17 @@ export const MatchBadge = styled.span`
   background: #2563eb;
   color: #fff;
   border: 0.75px solid #bcc4d5;
-  width:65px;
-  height:22px;
+  width: 65px;
+  height: 22px;
   font-size: 12px;
 `;
 
 export const TagBadge = styled.span`
-  padding: 4px 8px;
+  padding: 6px 8px;
   border-radius: 6px;
   background: #51a2ff;
   color: #fff;
   border: 0.75px solid #bcc4d5;
-  width:40px;
-  height:22px;
   font-size: 12px;
 `;
 
@@ -203,7 +191,6 @@ export const BoardReason = styled.p`
   color: #2563eb;
   border-radius: 4px;
   margin-bottom: 24px;
-  
 `;
 
 /* ========== Toolbar ========== */
@@ -226,8 +213,8 @@ export const SectionLeft = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    background-color:#2563eb;
+  &:hover {
+    background-color: #2563eb;
   }
 `;
 
@@ -244,7 +231,7 @@ export const Input = styled.input`
 
 export const Filters = styled.div`
   display: flex;
-  margin-right:292px;
+  margin-right: 292px;
   align-items: center;
   justify-content: center;
 `;
@@ -257,13 +244,12 @@ export const FilterButton = styled.button`
   border-radius: 8px;
   font-size: 20px;
   cursor: pointer;
-  display: flex;              
-  align-items: center;         
-  justify-content: center;     
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
   background: ${(props) => (props.active ? "#000" : "#fff")};
-  color: ${(props) => (props.active ? "#fff" : "#000")}; 
-
+  color: ${(props) => (props.active ? "#fff" : "#000")};
 `;
 
 export const IconWrapper = styled.div`
@@ -279,10 +265,10 @@ export const ListIcon = styled.div`
   justify-content: center;
   border: 1px solid;
   border-radius: 8px;
-  padding: 8px; 
+  padding: 8px;
   cursor: pointer;
   background: ${(props) => (props.active ? "#51a2ff" : "#fff")};
-  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")}; 
+  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")};
 `;
 
 export const Grid2X2Icon = styled.div`
@@ -290,20 +276,18 @@ export const Grid2X2Icon = styled.div`
   align-items: center;
   justify-content: center;
 
-  border: 1px solid ;
+  border: 1px solid;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
   background: ${(props) => (props.active ? "#51a2ff" : "#fff")};
-  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")}; 
-
+  color: ${(props) => (props.active ? "#fff" : "#bcc4d5")};
 `;
-
 
 export const BoardList = styled.section`
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   display: grid;
   gap: 16px;
   grid-template-columns: ${(props) =>
@@ -311,9 +295,9 @@ export const BoardList = styled.section`
 `;
 
 export const BoardItem = styled.article.withConfig({
-  shouldForwardProp: (prop) => prop !== "viewMode"
+  shouldForwardProp: (prop) => prop !== "viewMode",
 })`
-  height: 146px;   
+  height: 146px;
   width: ${(props) => (props.viewMode === "grid" ? "712px" : "1440px")};
   background: #fff;
   border: 1px solid #dceaff;
@@ -346,4 +330,3 @@ export const PageButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
 `;
-
