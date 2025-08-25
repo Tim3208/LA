@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import MainLayOut from "../../layout/MainLayOut";
-import styled from "styled-components";
-import { boards } from "@/data/boards";
-import { useNavigate } from "react-router-dom";
-
 import {
   Container,
   Header,
@@ -20,7 +16,6 @@ import {
   BoardItem,
   BoardHeader,
   CategoryBadge,
-  MatchBadge,
   TagBadge,
   BoardTitle,
   BoardDesc,
@@ -37,92 +32,45 @@ import {
   PageButton,
 } from "./style";
 
-import {
-  Sparkles,
-  Clock,
-  Heart,
-  MessageSquare,
-  Grid2X2,
-  List,
-} from "lucide-react";
+import { Sparkles, Clock, Heart, MessageSquare, Grid2X2, List } from "lucide-react";
 
 const BoardPage = () => {
-   const navigate = useNavigate();
-  const {boardId} = useParams();
-  const currentBoard = boards.find(board => board.id === String(boardId)) || boards[0];
+  const navigate = useNavigate();
+  const { boardId } = useParams();
   const [activePage, setActivePage] = useState(1);
   const [activeIcon, setActiveIcon] = useState("list");
   const [filter, setFilter] = useState("latest");
-  
+  const [search, setSearch] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const recommendPosts = [
-    {
-      id: 1,
-      category: "홍보게시판",
-      match: "66%매치",
-      title: "[홍보] 새로 오픈한 카페 방문해보세요!",
-      desc: "강남역 2번 출구 근처 새 카페 오픈, 이벤트 진행 중!",
-      reason: "추천 이유: 최근 맛집/카페 관련 게시글을 자주 보셨어요.",
-    },
-    {
-      id: 2,
-      category: "홍보게시판",
-      match: "68%매치",
-      tag: "공식",
-      title: "[홍보] 지역 소상공인 지원 프로그램 안내드립니다.",
-      desc: "강남구 소상공인 분들을 위한 다양한 지원책을 소개합니다.",
-      reason: "추천 이유: 공식 계정의 신뢰할 수 있는 공지예요.",
-    },
-  ];
+  const currentBoard = { title: boardId || "게시판" };
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-  const posts = [
-    {
-      id: 1,
-      hot: true,
-      news: true,
-      tags: ["#교통", "#공사", "#뉴스"],
-      title: "강남구 교통 개선 관련 최신 소식",
-      desc: "강남대로 일대 교통 체계 개선 공사가 다음 달부터 시작됩니다. 우회 경로를 미리 확인해주세요.",
-      meta: "뉴스봇 · 8시간 전",
-    },
-    {
-      id: 2,
-      hot: true,
-      news: false,
-      tags: ["#공지", "#공식", "#지원"],
-      title: "[홍보] 지역 소상공인 지원 프로그램 안내드립니다.",
-      desc: "강남구에서 소상공인을 위한 다양한 지원 프로그램을 운영하고 있습니다. 자세한 내용은 구청 홈페이지를 확인해주세요.",
-      meta: "강남구청 · 9시간 전",
-    },
-    {
-      id: 3,
-      hot: false,
-      news: false,
-      tags: ["#교통", "#맛집", "#활동"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물에 대한 내용을 요약해서 적는 란입니다.",
-      meta: "이용자 · 10시간 전",
-    },
-    {
-      id: 4,
-      hot: false,
-      news: false,
-      tags: ["#공지", "#행사"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물의 내용이 들어가는 공간입니다.",
-      meta: "뉴스봇 · 1일 전",
-    },
-    {
-      id: 5,
-      hot: false,
-      news: false,
-      tags: ["#소통", "#잡담"],
-      title: "게시물 제목을 입력하는 란입니다",
-      desc: "게시물의 내용이 들어가는 공간입니다.",
-      meta: "이용자 · 2일 전",
-    },
-  ];
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const sortParam = filter === "latest" ? "asc" : "desc";
+      const response = await fetch(
+        `${BASE_URL}/posts?category=${boardId || "free"}&page=${activePage}&limit=10&search=${search}&sort=${sortParam}`
+      );
 
+      if (!response.ok) throw new Error("게시글 불러오기 실패");
+      const data = await response.json();
+      setPosts(data);
+    } catch (err) {
+      console.error(err);
+      alert("게시글 로딩 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, [activePage, filter, search, boardId]);
+
+  const isHotBoard = boardId === "hot";
 
   return (
     <MainLayOut>
@@ -135,110 +83,87 @@ const BoardPage = () => {
               AI 맞춤 추천 <Badge>개인화</Badge>
             </RecommendLeft>
             <RecommendRight>
-              <ButtonSmall>새로고침</ButtonSmall>
-              <ButtonSmall>숨기기</ButtonSmall>
+              <ButtonSmall onClick={fetchPosts}>새로고침</ButtonSmall>
             </RecommendRight>
           </SectionTitle>
-
-          <RecommendList>
-            {recommendPosts.map((post) => (
-              <RecommendItem key={post.id}>
-                <BoardHeader>
-                  {post.category && (<CategoryBadge>{post.category}</CategoryBadge>)}
-                  {post.match && <MatchBadge>{post.match}</MatchBadge>}
-                  {post.tag && <TagBadge>{post.tag}</TagBadge>}
-                </BoardHeader>
-                <BoardTitle>{post.title}</BoardTitle>
-                {post.desc && <BoardDesc>{post.desc}</BoardDesc>}
-                {post.reason && <BoardReason>{post.reason}</BoardReason>}
-              </RecommendItem>
-            ))}
-          </RecommendList>
+          <RecommendList>{/* 추천글 API 연동 가능 */}</RecommendList>
         </RecommendSection>
 
         <Toolbar>
-          <SectionLeft 
-          onClick={() => navigate("/create")} 
-          style={{ cursor: "pointer" }} 
-          >+ 글쓰기</SectionLeft>
-          <Input placeholder="게시글 검색..." />
+          <SectionLeft
+            onClick={() => !isHotBoard && navigate("/create")}
+            style={{ cursor: isHotBoard ? "not-allowed" : "pointer", opacity: isHotBoard ? 0.5 : 1 }}
+          >
+            + 글쓰기
+          </SectionLeft>
+          <Input
+            placeholder="게시글 검색..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && setActivePage(1)}
+          />
           <Filters>
-              <FilterButton
-    active={filter === "latest"}
-    onClick={() => setFilter("latest")}
-  >
-    <Clock size={24} /> 최신순
-  </FilterButton>
-  <FilterButton
-    active={filter === "popular"}
-    onClick={() => setFilter("popular")}
-  >
-    <Heart size={24} /> 인기순
-  </FilterButton>
-  <FilterButton
-    active={filter === "comment"}
-    onClick={() => setFilter("comment")}
-  >
-    <MessageSquare size={24} /> 댓글순
-  </FilterButton>
+            <FilterButton active={filter === "latest"} onClick={() => setFilter("latest")}>
+              <Clock size={24} /> 최신순
+            </FilterButton>
+            <FilterButton active={filter === "popular"} onClick={() => setFilter("popular")}>
+              <Heart size={24} /> 인기순
+            </FilterButton>
+            <FilterButton active={filter === "comment"} onClick={() => setFilter("comment")}>
+              <MessageSquare size={24} /> 댓글순
+            </FilterButton>
           </Filters>
-            <IconWrapper>
-            <Grid2X2Icon 
-              active={activeIcon === "grid"}
-              onClick={() => setActiveIcon("grid")}>
-              <Grid2X2 size={24}  />
+          <IconWrapper>
+            <Grid2X2Icon active={activeIcon === "grid"} onClick={() => setActiveIcon("grid")}>
+              <Grid2X2 size={24} />
             </Grid2X2Icon>
-            <ListIcon
-              active={activeIcon === "list"}
-              onClick={() => setActiveIcon("list")}>
-              <List size={24}  /></ListIcon>
-            </IconWrapper>     
+            <ListIcon active={activeIcon === "list"} onClick={() => setActiveIcon("list")}>
+              <List size={24} />
+            </ListIcon>
+          </IconWrapper>
         </Toolbar>
 
-        <BoardList viewMode={activeIcon}>
-          {posts.map((post) => (
-            <BoardItem key={post.id} viewMode={activeIcon}>
-              <BoardHeader>
-                {post.hot && <Badge type="hot">HOT</Badge>}
-                {post.news && <Badge type="news">뉴스</Badge>}
-                {post.tags.map((tag) => (
-                  <Badge type="tags" key={tag}>
-                    {tag}
-                    </Badge>
-                ))}
-              </BoardHeader>
-              <BoardTitle>{post.title}</BoardTitle>
-              <BoardDesc>{post.desc}</BoardDesc>
-              <BoardReason>{post.meta}</BoardReason>
-            </BoardItem>
-          ))}
-        </BoardList>
-
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <BoardList viewMode={activeIcon}>
+            {posts.map((post) => (
+              <BoardItem key={post.id} viewMode={activeIcon}>
+                <BoardHeader>
+                  {post.category && <CategoryBadge>{post.category}</CategoryBadge>}
+                  {post.tags?.map((tag) => (
+                    <TagBadge key={tag}>{tag}</TagBadge>
+                  ))}
+                  {post.likes >= 10 && <Badge type="hot">HOT</Badge>}
+                </BoardHeader>
+                <BoardTitle>{post.title}</BoardTitle>
+                <BoardDesc>{post.content}</BoardDesc>
+                <BoardReason>
+                  {post.author_name} · {new Date(post.created_at).toLocaleString()}
+                </BoardReason>
+              </BoardItem>
+            ))}
+          </BoardList>
+        )}
 
         <Pagination>
-          <PageButton
-            onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
-          >
-           &lt; 이전
+          <PageButton onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}>
+            &lt; 이전
           </PageButton>
-          {[1, 2, 3].map((num) => (
+          {[...Array(3)].map((_, i) => (
             <PageButton
-              key={num}
-              active={activePage === num}
-              onClick={() => setActivePage(num)}
+              key={i + 1}
+              active={activePage === i + 1}
+              onClick={() => setActivePage(i + 1)}
             >
-              {num}
+              {i + 1}
             </PageButton>
           ))}
-          <PageButton
-            onClick={() => setActivePage((prev) => Math.min(prev + 1, 3))}
-          >
-            다음 &gt;
-          </PageButton>
+          <PageButton onClick={() => setActivePage((prev) => prev + 1)}>다음 &gt;</PageButton>
         </Pagination>
       </Container>
     </MainLayOut>
   );
 };
 
-export default BoardPage;
+export default BoardPage; 

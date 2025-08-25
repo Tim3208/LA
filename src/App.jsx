@@ -12,6 +12,7 @@ import FaqPage from "./pages/FaqPage";
 import ListPage from "./pages/ListPage";
 import MyPage from "./pages/MyPage";
 import CreatePage from "./pages/CreatePage";
+import PostPage from "./pages/PostPage";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
           <Route path="/list" element={<ListPage />} />
 
           <Route path="/board/:boardId" element={<BoardPage />} />
+
+          {/* 게시물 페이지 */}
+          <Route path="/post" element={<PostPage />} />
 
           {/* Ai 페이지 */}
           <Route path="/ai" element={<AiPage />} />
