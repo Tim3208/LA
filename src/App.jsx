@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./style/globalstyle";
 import { Toaster } from "sonner";
 import { LocationProvider } from "@/contexts/LocationContext";
@@ -17,7 +17,7 @@ import PostPage from "./pages/PostPage";
 function App() {
   return (
     <LocationProvider>
-      <BrowserRouter>
+      <HashRouter>
         <GlobalStyle />
         <Toaster />
         <Routes>
@@ -47,7 +47,7 @@ function App() {
           {/* FAQ 페이지 */}
           <Route path="/faq" element={<FaqPage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </LocationProvider>
   );
 }
